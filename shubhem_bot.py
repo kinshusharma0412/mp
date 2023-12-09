@@ -7,7 +7,7 @@ from pyrogram import Client, enums
 from pyrogram.methods.utilities.idle import idle
 import sys
 url_page=sys.argv[1]
-
+print(url_page)
 
 from pyrogram.raw import functions
 from pyrogram.raw import types
