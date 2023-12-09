@@ -4,8 +4,9 @@ import os,time
 import streamlit as st
 from streamlit_javascript import st_javascript
 
-url_page = st_javascript("await fetch('').then(r => window.parent.location.href)")
-time.sleep(10)
+url_page = st_javascript("await fetch('window.parent.location.href')")
+#url_page = st_javascript("await fetch('').then(r => window.parent.location.href)")
+
 st.write(url_page)
 @st.cache_resource
 def init_connection1():
