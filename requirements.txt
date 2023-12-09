@@ -2,3 +2,4 @@ pyrogram
 tgcrypto
 nest_asyncio
 apscheduler
+streamlit_js_eval
