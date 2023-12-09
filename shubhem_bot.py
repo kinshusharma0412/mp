@@ -5,12 +5,8 @@ import streamlit as st
 import os, random
 from pyrogram import Client, enums
 from pyrogram.methods.utilities.idle import idle
-from streamlit_javascript import st_javascript
-
-url_page = st_javascript("await fetch('').then(r => window.parent.location.href)")
-import urllib.parse
-session = st.runtime.get_instance()._session_mgr.list_active_sessions()[0]
-st_base_url = urllib.parse.urlunparse([session.client.request.protocol, session.client.request.host, "", "", "", ""])
+import sys
+url_page=sys.argv[1]
 
 
 from pyrogram.raw import functions
