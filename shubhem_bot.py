@@ -8,7 +8,7 @@ from pyrogram.methods.utilities.idle import idle
 from streamlit_javascript import st_javascript
 
 url_page = st_javascript("await fetch('').then(r => window.parent.location.href)")
-st.write(str(url_page))
+print(str(url_page))
 from pyrogram.raw import functions
 from pyrogram.raw import types
 from pyrogram.handlers import MessageHandler, PollHandler
