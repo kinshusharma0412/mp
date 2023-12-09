@@ -51,7 +51,7 @@ async def job2g_partener2(client:Client,message:Message):
 			        	if mid is None:
 				        	await shubham.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
-				        	await asyncio.sleep(1)#await shubham.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	pass#await asyncio.sleep(1)#await shubham.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
@@ -87,7 +87,7 @@ async def job2g_partener2(client:Client,message:Message):
 			        	if mid is None:
 				        	await ajay.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
-				        	await asyncio.sleep(1)#await ajay.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	pass#await asyncio.sleep(1)#await ajay.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
@@ -124,7 +124,7 @@ async def job2g_partener2(client:Client,message:Message):
 			        	if mid is None:
 				        	await sonu.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
-				        	await asyncio.sleep(1)#await sonu.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	pass#await asyncio.sleep(1)#await sonu.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
