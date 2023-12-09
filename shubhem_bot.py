@@ -5,7 +5,7 @@ import streamlit as st
 import os, random
 from pyrogram import Client, enums
 from pyrogram.methods.utilities.idle import idle
-from streamlit_js_eval import get_page_location
+
 from pyrogram.raw import functions
 from pyrogram.raw import types
 from pyrogram.handlers import MessageHandler, PollHandler
@@ -151,10 +151,10 @@ def main():
 	_=init_connection1()
 	_=init_connection2()
 	_=init_connection3()
-	st.write(get_page_location())
-	shubham.send_message("Kinbin246","[Shubham Bot Restart Sucessful]("+str(get_page_location())+")",disable_web_page_preview=True)
-	ajay.send_message("Kinbin246","[Ajay Bot Restart Sucessful]("+get_page_location()+")",disable_web_page_preview=True)
-	sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+get_page_location()+")",disable_web_page_preview=True)
+	st.write(st.get_url())
+	shubham.send_message("Kinbin246","[Shubham Bot Restart Sucessful]("+str(st.get_url())+")",disable_web_page_preview=True)
+	ajay.send_message("Kinbin246","[Ajay Bot Restart Sucessful]("+st.get_url()+")",disable_web_page_preview=True)
+	sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+st.get_url()+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
 	ajay.send_message("Kinbin246","Ajay Bot stoped")
