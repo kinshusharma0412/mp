@@ -6,7 +6,7 @@ from streamlit_javascript import st_javascript
 
 
 while True:
-	url_page = st_javascript("await fetch('window.location.href')")
+	url_page = st_javascript("await fetch('').then(r => window.parent.location.href)")
 	if url_page!=0:
 		break
 	else:
