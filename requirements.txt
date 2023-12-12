@@ -3,3 +3,5 @@ tgcrypto
 nest_asyncio
 apscheduler
 streamlit_javascript
+pymongo
+git+https://github.com/rthalley/dnspython
