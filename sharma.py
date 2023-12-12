@@ -136,11 +136,11 @@ def main():
 		return app.start()
 	_=init_connection1()
 	
-	app.send_message("Kinbin246","Attendance Bot Restart sucessful")
-	app.send_message("Negtestsir","Attendance Bot Restart sucessful")
+	app.send_message("Kinbin246","[Attendance Bot Restart sucessful]("+url_page+")",disable_web_page_preview=True)
+	app.send_message("Negtestsir","[Attendance Bot Restart sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
-	app.send_message("Kinbin246","Attendance Bot stoped")
-	app.send_message("Negtestsir","Attendance Bot stoped")
+	app.send_message("Kinbin246","[Attendance Bot stoped]("+url_page+")",disable_web_page_preview=True)
+	app.send_message("Negtestsir","Attendance Bot stoped]("+url_page+")",disable_web_page_preview=True)
 	app.stop()
 
 
