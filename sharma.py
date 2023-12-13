@@ -128,7 +128,9 @@ async def remove_employ(client:Client,message:Message):
 	cm["sharma_ji"]["Employee"].find_one_and_update({"db":{"$type":"object"}},{ "$set": {"db":db}})
 	await app.send_message(message.chat.id, str("remove sucessful"))
 
-
+@app.on_message(filters.command(["start"]) & filters.private)
+async def start(client:Client,message:Message):
+	await app.send_message(message.chat.id, "सभी स्टाफ अपनी ड्यूटी पर पहुंचकर अपनी टाइम स्टांप कैमरे के साथ फोटो डालें, जिससे आपकी उपस्थिति दर्ज हो सके।")
 
 def main():
 	@st.cache_resource
