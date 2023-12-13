@@ -53,7 +53,7 @@ async def img_text(client:Client,message:Message):
 	user=message.from_user
 	name=user.first_name
 	timenow=time.ctime()
-	current=(time.localtime(time.time()))
+	current=(time.localtime(time.time()+5.5*3600))
 	now=current.tm_hour*60*60+current.tm_min*60+current.tm_sec
 	full_time=[]
 	for x in fulltime:
