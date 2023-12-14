@@ -148,7 +148,7 @@ try:
 			shift = "SHIFT - '🅱'"
 		
 		text1=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
-		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text1) ,id="job1")
+		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(str(text1),) ,id="job1")
 		b=fulltime[4].split(":")
 		if int(b[0])>12:
 			new= str(int(b[0])-12)+":"+b[1]+" PM"
@@ -157,7 +157,7 @@ try:
 		if len(new)==7:
 			new="0"+new
 		text2=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
-		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2) ,id="job2")
+		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2,) ,id="job2")
 except Exception as e:
 	print (e)
 
@@ -185,7 +185,7 @@ async def add_time(client:Client,message:Message):
 			shift = "SHIFT - '🅱'"
 		
 		text1=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
-		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text1) ,id="job1")
+		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text1,) ,id="job1")
 		await app.send_message(message.chat.id, str(ss))
 		b=fulltime[4].split(":")
 		if int(b[0])>12:
@@ -195,7 +195,7 @@ async def add_time(client:Client,message:Message):
 		if len(new)==7:
 			new="0"+new
 		text2=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
-		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2) ,id="job2")
+		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2,) ,id="job2")
 		await app.send_message(message.chat.id, str(ss))
 		await app.send_message(message.chat.id, str("Schedule updated"))
 		
