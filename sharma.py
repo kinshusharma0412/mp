@@ -136,7 +136,7 @@ try:
 		
 		a=fulltime[0].split(":")
 		b=fulltime[1].split(":")
-		if b[0]>12:
+		if int(b[0])>12:
 			new= str(int(b[0])-12)+":"+b[1]+" PM"
 		else:
 			new= str(int(b[0]))+":"+b[1]+" AM"
@@ -164,7 +164,7 @@ async def add_time(client:Client,message:Message):
 		
 		a=fulltime[0].split(":")
 		b=fulltime[1].split(":")
-		if b[0]>12:
+		if int(b[0])>12:
 			new= str(int(b[0])-12)+":"+b[1]+" PM"
 		else:
 			new= str(int(b[0]))+":"+b[1]+" AM"
