@@ -125,9 +125,9 @@ def first_job(y,z):
 			cid.append(member.user.id)
 	for x in cid:
 		try:
-			await app.send_message(x, f"सभी {y} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {z} बजे से पहले जरूर डाल देवे।")
+			app.send_message(x, f"सभी {y} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {z} बजे से पहले जरूर डाल देवे।")
 		except :
-			await app.send_message(5948488950, f"I'd {x} user ने बोट को /start नही कर रखा है अभी तक।")
+			app.send_message(5948488950, f"I'd {x} user ने बोट को /start नही कर रखा है अभी तक।")
 
 try:
 	fulltime=cm["sharma_ji"]["Employee"].find_one({"time":{"$type":"array"}})
