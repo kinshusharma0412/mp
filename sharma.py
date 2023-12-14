@@ -35,9 +35,11 @@ try:
 except:
 	 import dns
 from pymongo import MongoClient
-cm=clientmongo=MongoClient('mongodb+srv://Kinshu04101:Qwert123@cluster0.ckcyx.mongodb.net/test?retryWrites=true&w=majority')
+mongodb=os.environ['mongodb']
+bot_token=os.environ['bot_token']
+cm=clientmongo=MongoClient(mongodb)
 
-app=Client("Expressway attendance bot",bot_token="6967412548:AAFXLodlRMz-IsQSUvNnDtQAvuLFKlnZnhU",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+app=Client("Expressway attendance bot",bot_token=bot_token, api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 
 @app.on_message(filters.photo & filters.private)
 async def img_text(client:Client,message:Message):
@@ -130,6 +132,11 @@ async def remove_employ(client:Client,message:Message):
 
 @app.on_message(filters.command(["start"]) & filters.private)
 async def start(client:Client,message:Message):
+	await app.send_message(message.chat.id, "सभी स्टाफ अपनी ड्यूटी पर पहुंचकर अपनी टाइम स्टांप कैमरे के साथ फोटो डालें, जिससे आपकी उपस्थिति दर्ज हो सके।")
+
+@app.on_message(filters.location & filters.private)
+async def start(client:Client,message:Message):
+	print(message)
 	await app.send_message(message.chat.id, "सभी स्टाफ अपनी ड्यूटी पर पहुंचकर अपनी टाइम स्टांप कैमरे के साथ फोटो डालें, जिससे आपकी उपस्थिति दर्ज हो सके।")
 
 def main():
