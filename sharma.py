@@ -118,14 +118,14 @@ Note: {text1}""")
 Employee 🆔: {employee_id}
 {shift}
 Note: {text1}""")
-def first_job(y,z):
+def first_job(y):
 	cid=[]
 	for member in app.get_chat_members(-1002050870187):
 		if member.user.id!=6967412548:
 			cid.append(member.user.id)
 	for x in cid:
 		try:
-			app.send_message(x, f"सभी {y} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {z} बजे से पहले जरूर डाल देवे।")
+			app.send_message(x,y )
 		except :
 			app.send_message(5948488950, f"I'd {x} user ने बोट को /start नही कर रखा है अभी तक।")
 
@@ -147,8 +147,17 @@ try:
 		else:
 			shift = "SHIFT - '🅱'"
 		
-		
-		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(shift,new) ,id="job1")
+		text1=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
+		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text1) ,id="job1")
+		b=fulltime[4].split(":")
+		if int(b[0])>12:
+			new= str(int(b[0])-12)+":"+b[1]+" PM"
+		else:
+			new= str(int(b[0]))+":"+b[1]+" AM"
+		if len(new)==7:
+			new="0"+new
+		text2=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
+		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2) ,id="job2")
 except Exception as e:
 	print (e)
 
@@ -175,8 +184,18 @@ async def add_time(client:Client,message:Message):
 		else:
 			shift = "SHIFT - '🅱'"
 		
-		
-		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(shift,new) ,id="job1")
+		text1=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
+		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text1) ,id="job1")
+		await app.send_message(message.chat.id, str(ss))
+		b=fulltime[4].split(":")
+		if int(b[0])>12:
+			new= str(int(b[0])-12)+":"+b[1]+" PM"
+		else:
+			new= str(int(b[0]))+":"+b[1]+" AM"
+		if len(new)==7:
+			new="0"+new
+		text2=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
+		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2) ,id="job2")
 		await app.send_message(message.chat.id, str(ss))
 		await app.send_message(message.chat.id, str("Schedule updated"))
 		
