@@ -195,6 +195,7 @@ async def add_time(client:Client,message:Message):
 			new= str(int(b[0]))+":"+b[1]+" AM"
 		if len(new)==7:
 			new="0"+new
+		a=fulltime[3].split(":")
 		text2=f"सभी {shift} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {new} बजे से पहले जरूर डाल देवे।"
 		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(text2,) ,id="job2")
 		await app.send_message(message.chat.id, str(ss))
