@@ -22,6 +22,8 @@ from pyrogram.types import InlineKeyboardMarkup as IKM
 from pyrogram.types import InlineKeyboardButton as IKB
 from pyrogram.enums import PollType
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
+scheduler.start()
 import asyncio
 from pyrogram.errors import FloodWait
 import  json
@@ -61,6 +63,11 @@ async def img_text(client:Client,message:Message):
 	for x in fulltime:
 		y=x.split(":")
 		full_time.append(3600*int(y[0])+60*int(y[1]))
+	if (5*3600-10)<full_time[0]<(10*3600+10):
+		shift = "SHIFT - '🅰'"
+	else:
+		shift = "SHIFT - '🅱'"
+		
 	text1=""
 	if full_time[0]<full_time[1]<full_time[2]<full_time[3]<full_time[4]:
 		pass
@@ -96,24 +103,84 @@ async def img_text(client:Client,message:Message):
 📮 Post: {post}
 ⏳ Time: {timenow}
 Employee 🆔: {employee_id}
+{shift}
 Note: {text1}""")
 	except:
 		await app.send_photo(-1002050870187, "downloads/"+fname+"sample.png",caption=f"""📛 Name: {name}
 📮 Post: {post}
 ⏳ Time: {timenow}
 Employee 🆔: {employee_id}
+{shift}
 Note: {text1}""")
 	await app.send_message(message.chat.id, f"""📛 Name: {name}
 📮 Post: {post}
 ⏳ Time: {timenow}
 Employee 🆔: {employee_id}
+{shift}
 Note: {text1}""")
+def first_job(y,z):
+	cid=[]
+	for member in app.get_chat_members(-1002050870187):
+		if member.user.id!=6967412548:
+			cid.append(member.user.id)
+	for x in cid:
+		try:
+			await app.send_message(x, f"सभी {y} के स्टाफ अथवा गॉर्ड अपनी अपनी हाजिरी टाइम स्टांप कैमरे के साथ {z} बजे से पहले जरूर डाल देवे।")
+		except :
+			await app.send_message(5948488950, f"I'd {x} user ने बोट को /start नही कर रखा है अभी तक।")
+
+try:
+	fulltime=cm["sharma_ji"]["Employee"].find_one({"time":{"$type":"array"}})
+	if fulltime is not None:
+		fulltime=fulltime["time"]
+		
+		a=fulltime[0].split(":")
+		b=fulltime[1].split(":")
+		if b[0]>12:
+			new= str(int(b[0])-12)+":"+b[1]+" PM"
+		else:
+			new= str(int(b[0]))+":"+b[1]+" AM"
+		if len(new)==7:
+			new="0"+new
+		if (5*3600-10)<3600*int(a[0])+60*int(a[1])<(10*3600+10):
+			shift = "SHIFT - '🅰'"
+		else:
+			shift = "SHIFT - '🅱'"
+		
+		
+		scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(shift,new) ,id="job1")
+except Exception as e:
+	print (e)
+
 
 @app.on_message(filters.regex("^\[(\"|')\d{1,}:\d{1,}(\"|'),( |)(\"|')\d{1,}:\d{1,}(\"|'),( |)(\"|')\d{1,}:\d{1,}(\"|'),( |)(\"|')\d{1,}:\d{1,}(\"|'),( |)(\"|')\d{1,}:\d{1,}(\"|')\]") & filters.private)
 async def add_time(client:Client,message:Message):
 	timer=eval(message.text)
 	cm["sharma_ji"]["Employee"].find_one_and_update({"time":{"$type":"array"}},{ "$set": {"time":timer}})
 	await app.send_message(message.chat.id, str(timer))
+	fulltime=cm["sharma_ji"]["Employee"].find_one({"time":{"$type":"array"}})
+	if fulltime is not None:
+		fulltime=fulltime["time"]
+		
+		a=fulltime[0].split(":")
+		b=fulltime[1].split(":")
+		if b[0]>12:
+			new= str(int(b[0])-12)+":"+b[1]+" PM"
+		else:
+			new= str(int(b[0]))+":"+b[1]+" AM"
+		if len(new)==7:
+			new="0"+new
+		if (5*3600-10)<3600*int(a[0])+60*int(a[1])<(10*3600+10):
+			shift = "SHIFT - '🅰'"
+		else:
+			shift = "SHIFT - '🅱'"
+		
+		
+		ss=scheduler.add_job(first_job, "cron",day_of_week="mon-sun",hour=int(a[0]), minute=int(a[1]), replace_existing=True,args=(shift,new) ,id="job1")
+		await app.send_message(message.chat.id, str(ss))
+		await app.send_message(message.chat.id, str("Schedule updated"))
+		
+	
 
 @app.on_message(filters.regex("^.add") & filters.private)
 async def add_employ(client:Client,message:Message):
