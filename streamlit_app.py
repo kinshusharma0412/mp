@@ -17,7 +17,7 @@ while True:
 st.write(url_page)
 @st.cache_resource
 def init_connection1():
-	return os.system("/home/adminuser/venv/bin/python shubhem_bot.py "+str(url_page))
+	return os.system("/home/adminuser/venv/bin/python shubhem_bot.py "+str(url_page)[:-4])
 _=init_connection1()
 #STREAMLIT SITE
 #/home/adminuser/venv/bin/.py & /home/adminuser/venv/bin/python bb.py")
