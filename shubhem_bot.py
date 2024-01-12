@@ -191,6 +191,7 @@ def main():
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
 	ajay.send_message("Kinbin246","Ajay Bot stoped")
 	sonu.send_message("Kinbin246","sonu Bot stoped")
+	robo.send_message("Kinbin246","sonu Bot stoped")
 	shubham.stop()
 	ajay.stop()
 	sonu.stop()
