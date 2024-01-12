@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+Profile_photo_soojh=[-1001536663326,-1001375781470,-1001360402430,-1001500806585,-1001472812678,-1001145720099,-1001373589965]
 import time
 import streamlit as st
 import os, random
@@ -25,10 +26,20 @@ import  json
 import time, random,string
 import re as reaaa
 import requests
-
+import random,string
+def id_generator(size=10, chars=string.ascii_lowercase):
+	return ''.join(random.choice(chars) for _ in range(size))
+import time,datetime
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
+scheduler.start()
 shubham=Client("shubhem new",session_string="BQDQx-MANuQXdkt94AeyR9ABKMFvubc5SKOjyuAzd4Pk5U_x8DJOiQ2xuyo6TkoxRoMd7LW2ToY8Rr2V0be9fSJYPRQOlI-Fo0H6uV1pMUd5plnwBef2sWQnBBB6k6pvoPf8uX65Sy5_c-AXS8u4DS-twaoIvTXzn_HTR58nPLHoHveiEbS-NOkgGHgWjPCjGPebYQSaBfcdr19j0hz2x2EjOkfLnOZpwKGR9qP4-9YiTCsGMcGTV7rGMU-5-2r7oLQhG0ub1KuvvyiVPkpEBdwmVxhq0c0djabmfa3LIu5_fxh9CG6rVjJIciLBF6HKEoSR-kEFOqhfkVM08SYsCT1KcRvNwgAAAAFsftwoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 ajay=Client("ajay kumar",session_string="BQDQx-MAKUPughkTOuqfEd0qrQ1SjO6sUcM_NjXy6G330LloOHPRHlEQioLBiNguNAWJKon3rmskFxCd_Hpmsz6F7eiDruATDJyTHSjTFvEOx0kSM_Az0uVitZmdLR-xrvQNBXX8TD8ra5rGqdjeq5cWfnJPfegUtFluc5mY-pf8DW-9jo5k6eq1G1BdGVYyne6q2HurLeSH_60CFpPRpRKCjJ0LZeHte5uMnYr61jP8FvAZEzRDXTf692fbbjNbIuFSPenZbYHi7jV7mDq1HYA2mjXc7Kgl2tapFsY7mA9yDarTILF5kdgAELq0I524JVVD7F_xzs8UFD2Fhz_iPWdiemXDcwAAAAFG9pXoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 sonu=Client("sonu kumar",session_string="BQDQx-MAUmTM56odpHH5VYkYXOOH1ZAuHcE_O5K8DNfRU2aAsRxN_O5JXY2tffVmeMOVPNnIeTVBN8cI4DEA3-zhw3tm3AZ54mkF99PUVcc06DMFHmn6ZjyzvBSOYzSvq84pFFGGcxZr4JjxctX3xVjSMXHsGTQ4-Pjp0Z3zNjdzs7z_l2qrKUvevE7AtxoAoDS1bRrE2zLPjVT-gqL8vNxuPUzPJ-Q9F3ewcbHjCVeXPAYCbE-VnzHLsdROGLvidZzUsNC7_w_MgiZ7owAeg2lpxR0q7z1YoWCbJvbHCRPE7uggWqRlLCJpzO_BQ4XxZ9FNnWggaZbg9oGk_xzEPajDa_SYAAAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+robo = Client("ROBOT",
+#bot_token="6200186150:AAFq1E9S9CgV-E_2yf_6Ag5lrGjW8OoRzks",
+api_id="13682659",
+api_hash="b984d240c5258407ea911f042c9d75f6")
 
 
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
@@ -140,7 +151,19 @@ async def job2g_partener2(client:Client,message:Message):
 	        except Exception as e:
 		        await sonu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 
-
+def profile_photo_soojh():
+	robo.send_message("BotFather","/setuserpic")
+	robo.send_message("BotFather","@soojhboojh_bot")
+	ids=[]
+	for x in robo.search_messages(random.choice(Profile_photo_soojh),filter=enums.MessagesFilter.PHOTO):
+		ids.append({str(x.chat.id):x.id})
+	choice=(random.choice(ids))
+	photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
+	photo=robo.download_media(photo.photo.file_id)
+	print(photo)
+	robo.send_photo("BotFather",photo)
+	os.remove(photo)
+scheduler.add_job(profile_photo_soojh,"interval", minutes=1)
 def main():
 	@st.cache_resource
 	def init_connection1():
@@ -154,6 +177,12 @@ def main():
 	_=init_connection1()
 	_=init_connection2()
 	_=init_connection3()
+	
+	@st.cache_resource
+	def init_connection2():
+		return robo.start()
+	_=init_connection2()
+	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
 	ajay.send_message("Kinbin246","[Ajay Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
@@ -165,6 +194,7 @@ def main():
 	shubham.stop()
 	ajay.stop()
 	sonu.stop()
+	robo.stop()
 
 if __name__ == '__main__':
     main()#
