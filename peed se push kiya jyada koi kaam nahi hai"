@@ -1,0 +1,29 @@
+[33mcommit 9068af778e675ff369ad41d49f9b121837c8cd1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: kinshusharm0412 <kinshusharm0412@gmail.com>
+Date:   Sun Jan 14 19:09:35 2024 +0530
+
+    speed se push kiya jyada koi kaam nahi hai
+
+[1mdiff --git a/shubhem_bot.py b/shubhem_bot.py[m
+[1mindex 525cb43..090ee31 100644[m
+[1m--- a/shubhem_bot.py[m
+[1m+++ b/shubhem_bot.py[m
+[36m@@ -150,7 +150,9 @@[m [masync def job2g_partener2(client:Client,message:Message):[m
+ 		#[m
+ 	        except Exception as e:[m
+ 		        await sonu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))[m
+[31m-[m
+[32m+[m[32mdef hibernation():[m[41m[m
+[32m+[m	[32mstatus_code_now=requests.head(url_page).status_code[m[41m[m
+[32m+[m	[32mrobo.send_message("kinbin246",str(status_code_now))[m[41m[m
+ def profile_photo_soojh():[m
+ 	robo.send_message("BotFather","/setuserpic")[m
+ 	robo.send_message("BotFather","@soojhboojh_bot")[m
+[36m@@ -170,6 +172,7 @@[m [mdef profile_photo_soojh():[m
+ 		robo.send_photo("BotFather",photo)[m
+ 	os.remove(photo)[m
+ scheduler.add_job(profile_photo_soojh,"interval", minutes=1)[m
+[32m+[m[32mscheduler.add_job(hibernation,"interval", days=1)[m[41m[m
+ def main():[m
+ 	@st.cache_resource[m
+ 	def init_connection1():[m
