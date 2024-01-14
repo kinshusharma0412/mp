@@ -158,10 +158,16 @@ def profile_photo_soojh():
 	for x in robo.search_messages(random.choice(Profile_photo_soojh),filter=enums.MessagesFilter.PHOTO):
 		ids.append({str(x.chat.id):x.id})
 	choice=(random.choice(ids))
-	photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
-	photo=robo.download_media(photo.photo.file_id)
-	print(photo)
-	robo.send_photo("BotFather",photo)
+	try:
+		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]+1))
+		photo=robo.download_media(photo.document.file_id)
+		#print(photo)
+		robo.send_photo("BotFather",photo)
+	except:
+		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
+		photo=robo.download_media(photo.photo.file_id)
+		#print(photo)
+		robo.send_photo("BotFather",photo)
 	os.remove(photo)
 scheduler.add_job(profile_photo_soojh,"interval", minutes=1)
 def main():
