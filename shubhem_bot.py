@@ -162,14 +162,16 @@ def profile_photo_soojh():
 	choice=(random.choice(ids))
 	try:
 		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]+1))
-		photo=robo.download_media(photo.document.file_id)
-		#print(photo)
-		robo.send_photo("BotFather",photo, caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id))
-	except:
-		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
+		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)
 		photo=robo.download_media(photo.photo.file_id)
 		#print(photo)
-		robo.send_photo("BotFather",photo, caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id))
+		robo.send_photo("BotFather",photo,caption=caption )
+	except:
+		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
+		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)
+		photo=robo.download_media(photo.photo.file_id)
+		#print(photo)
+		robo.send_photo("BotFather",photo,caption=caption )
 	os.remove(photo)
 scheduler.add_job(profile_photo_soojh,"interval", minutes=1)
 scheduler.add_job(hibernation,"interval", days=1)
