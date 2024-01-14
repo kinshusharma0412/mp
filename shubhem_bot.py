@@ -150,7 +150,9 @@ async def job2g_partener2(client:Client,message:Message):
 		#
 	        except Exception as e:
 		        await sonu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
-
+def hibernation():
+	status_code_now=requests.head(url_page).status_code
+	robo.send_message("kinbin246",str(status_code_now))
 def profile_photo_soojh():
 	robo.send_message("BotFather","/setuserpic")
 	robo.send_message("BotFather","@soojhboojh_bot")
@@ -170,6 +172,7 @@ def profile_photo_soojh():
 		robo.send_photo("BotFather",photo)
 	os.remove(photo)
 scheduler.add_job(profile_photo_soojh,"interval", minutes=1)
+scheduler.add_job(hibernation,"interval", days=1)
 def main():
 	@st.cache_resource
 	def init_connection1():
