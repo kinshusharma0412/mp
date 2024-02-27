@@ -70,7 +70,11 @@ async def job2g_partener2(client:Client,message:Message):
 		        
 		        
 		        z=await shubham.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
-		        await shubham.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        if "\." in z:
+		        	await shubham.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        
+		        else:
+		        	await shubham.send_document(message.chat.id,z,caption=str(y.caption),file_name=z+".mp4",caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		
 		        await shubham.delete_messages(chat_id=message.chat.id, message_ids=mid)
 		        os.remove(z)
