@@ -70,7 +70,7 @@ async def job2g_partener2(client:Client,message:Message):
 		        
 		        
 		        z=await shubham.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
-		        if "\." in z:
+		        if "." in z:
 		        	await shubham.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		        
 		        else:
