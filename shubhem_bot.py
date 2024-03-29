@@ -35,7 +35,7 @@ scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
 scheduler.start()
 shubham=Client("shubhem new",session_string="BQDQx-MANuQXdkt94AeyR9ABKMFvubc5SKOjyuAzd4Pk5U_x8DJOiQ2xuyo6TkoxRoMd7LW2ToY8Rr2V0be9fSJYPRQOlI-Fo0H6uV1pMUd5plnwBef2sWQnBBB6k6pvoPf8uX65Sy5_c-AXS8u4DS-twaoIvTXzn_HTR58nPLHoHveiEbS-NOkgGHgWjPCjGPebYQSaBfcdr19j0hz2x2EjOkfLnOZpwKGR9qP4-9YiTCsGMcGTV7rGMU-5-2r7oLQhG0ub1KuvvyiVPkpEBdwmVxhq0c0djabmfa3LIu5_fxh9CG6rVjJIciLBF6HKEoSR-kEFOqhfkVM08SYsCT1KcRvNwgAAAAFsftwoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 ajay=Client("ajay kumar",session_string="BQDQx-MAKUPughkTOuqfEd0qrQ1SjO6sUcM_NjXy6G330LloOHPRHlEQioLBiNguNAWJKon3rmskFxCd_Hpmsz6F7eiDruATDJyTHSjTFvEOx0kSM_Az0uVitZmdLR-xrvQNBXX8TD8ra5rGqdjeq5cWfnJPfegUtFluc5mY-pf8DW-9jo5k6eq1G1BdGVYyne6q2HurLeSH_60CFpPRpRKCjJ0LZeHte5uMnYr61jP8FvAZEzRDXTf692fbbjNbIuFSPenZbYHi7jV7mDq1HYA2mjXc7Kgl2tapFsY7mA9yDarTILF5kdgAELq0I524JVVD7F_xzs8UFD2Fhz_iPWdiemXDcwAAAAFG9pXoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
-sonu=Client("sonu kumar",session_string="BQDQx-MAUmTM56odpHH5VYkYXOOH1ZAuHcE_O5K8DNfRU2aAsRxN_O5JXY2tffVmeMOVPNnIeTVBN8cI4DEA3-zhw3tm3AZ54mkF99PUVcc06DMFHmn6ZjyzvBSOYzSvq84pFFGGcxZr4JjxctX3xVjSMXHsGTQ4-Pjp0Z3zNjdzs7z_l2qrKUvevE7AtxoAoDS1bRrE2zLPjVT-gqL8vNxuPUzPJ-Q9F3ewcbHjCVeXPAYCbE-VnzHLsdROGLvidZzUsNC7_w_MgiZ7owAeg2lpxR0q7z1YoWCbJvbHCRPE7uggWqRlLCJpzO_BQ4XxZ9FNnWggaZbg9oGk_xzEPajDa_SYAAAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+sonu=Client("sonu kumar",session_string="BQDQx-MAu5H0aHV_jebewJzC_jqu4v4ZhB94iPIs9JLLkkjHSPrEbC8AGTX-IzOFI7ijQ1mdmwNpXZFL5fANFSBy2M5r6zUJltREk88c3GMhBr0Unv16jB5JtUX-xJsQicsIeQZ0QjCUeFA6o64KIENGE0j_K6UssGwh7j-G9uHcPPN1dthewNzdDLcRvITu9Gcx1EsUjvQth_TZz5AxudPX6fnAOolKIa3BIEJKAUFHbpfyCp8Xq_HjdcFilHwy4KSd0I_xc_uE1UxYBfO3EPaT-GPbfseGdI_FpPYrTAusD_HMToTkVy0b41Hw5QI6FAYr8_7AqcMY-SzH6wJufhHKjUOOvwAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 robo = Client("ROBOT",
 #bot_token="6200186150:AAFq1E9S9CgV-E_2yf_6Ag5lrGjW8OoRzks",
 api_id="13682659",
@@ -193,7 +193,7 @@ def main():
 		return sonu.start()
 	_=init_connection1()
 	_=init_connection2()
-	#_=init_connection3()
+	_=init_connection3()
 	
 	@st.cache_resource
 	def init_connection2():
@@ -207,11 +207,11 @@ def main():
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
 	ajay.send_message("Kinbin246","Ajay Bot stoped")
-	#sonu.send_message("Kinbin246","sonu Bot stoped")
+	sonu.send_message("Kinbin246","sonu Bot stoped")
 	robo.send_message("Kinbin246","sonu Bot stoped")
 	shubham.stop()
 	ajay.stop()
-	#sonu.stop()
+	sonu.stop()
 	robo.stop()
 
 if __name__ == '__main__':
