@@ -193,26 +193,26 @@ def main():
 		return sonu.start()
 	_=init_connection1()
 	#_=init_connection2()
-	_=init_connection3()
+	#_=init_connection3()
 	
 	@st.cache_resource
 	def init_connection2():
 		return robo.start()
-	_=init_connection2()
+	#_=init_connection2()
 	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
 	#ajay.send_message("Kinbin246","[Ajay Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
-	sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
+	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
 	#ajay.send_message("Kinbin246","Ajay Bot stoped")
-	sonu.send_message("Kinbin246","sonu Bot stoped")
-	robo.send_message("Kinbin246","sonu Bot stoped")
+	#sonu.send_message("Kinbin246","sonu Bot stoped")
+	#robo.send_message("Kinbin246","sonu Bot stoped")
 	shubham.stop()
 	#ajay.stop()
-	sonu.stop()
-	robo.stop()
+	#sonu.stop()
+	#robo.stop()
 
 if __name__ == '__main__':
     main()#
