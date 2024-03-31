@@ -33,7 +33,7 @@ import time,datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
 scheduler.start()
-shubham=Client("shubhem new",session_string="BQDQx-MANuQXdkt94AeyR9ABKMFvubc5SKOjyuAzd4Pk5U_x8DJOiQ2xuyo6TkoxRoMd7LW2ToY8Rr2V0be9fSJYPRQOlI-Fo0H6uV1pMUd5plnwBef2sWQnBBB6k6pvoPf8uX65Sy5_c-AXS8u4DS-twaoIvTXzn_HTR58nPLHoHveiEbS-NOkgGHgWjPCjGPebYQSaBfcdr19j0hz2x2EjOkfLnOZpwKGR9qP4-9YiTCsGMcGTV7rGMU-5-2r7oLQhG0ub1KuvvyiVPkpEBdwmVxhq0c0djabmfa3LIu5_fxh9CG6rVjJIciLBF6HKEoSR-kEFOqhfkVM08SYsCT1KcRvNwgAAAAFsftwoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+shubham=Client("shubhem new",session_string="BQDQx-MAwKS8vghY6T1iE6VFGaq9ybkcjEaeqr0yO6tkZxkLMP4HxhLfppPHUHS9pTscSvxBA130PbjTSVxo2DUOJr1HU3RhVrGF80OTqnTtWB5r_bgWXK7DPwMfjQ1Qx-yQPGFLio0CD_tj3u7HTbptYORwq87Hr2LjONw4q6jyQQ4WpqkCvKznNOUAYrw3ZV0qEVp-EcE9MbVSHp8z318g--PLMHsXWF8B4rUR3-I46dxkCgUj7_f8tDx0ZYa5Z_NaNuGIk4NJL0j8h9c1VtwmMSds6m5vv2gWJsno3alWKuUus87gcQKXCtCrsF5y1Y-LUS6-kt43II0_zMdXYxNh7ThiCAAAAAF6PQK5AA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 ajay=Client("ajay kumar",session_string="BQDQx-MAKUPughkTOuqfEd0qrQ1SjO6sUcM_NjXy6G330LloOHPRHlEQioLBiNguNAWJKon3rmskFxCd_Hpmsz6F7eiDruATDJyTHSjTFvEOx0kSM_Az0uVitZmdLR-xrvQNBXX8TD8ra5rGqdjeq5cWfnJPfegUtFluc5mY-pf8DW-9jo5k6eq1G1BdGVYyne6q2HurLeSH_60CFpPRpRKCjJ0LZeHte5uMnYr61jP8FvAZEzRDXTf692fbbjNbIuFSPenZbYHi7jV7mDq1HYA2mjXc7Kgl2tapFsY7mA9yDarTILF5kdgAELq0I524JVVD7F_xzs8UFD2Fhz_iPWdiemXDcwAAAAFG9pXoAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 sonu=Client("sonu kumar",session_string="BQDQx-MAu5H0aHV_jebewJzC_jqu4v4ZhB94iPIs9JLLkkjHSPrEbC8AGTX-IzOFI7ijQ1mdmwNpXZFL5fANFSBy2M5r6zUJltREk88c3GMhBr0Unv16jB5JtUX-xJsQicsIeQZ0QjCUeFA6o64KIENGE0j_K6UssGwh7j-G9uHcPPN1dthewNzdDLcRvITu9Gcx1EsUjvQth_TZz5AxudPX6fnAOolKIa3BIEJKAUFHbpfyCp8Xq_HjdcFilHwy4KSd0I_xc_uE1UxYBfO3EPaT-GPbfseGdI_FpPYrTAusD_HMToTkVy0b41Hw5QI6FAYr8_7AqcMY-SzH6wJufhHKjUOOvwAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 robo = Client("ROBOT",
@@ -42,7 +42,7 @@ api_id="13682659",
 api_hash="b984d240c5258407ea911f042c9d75f6")
 
 
-@shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
+@shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
         
