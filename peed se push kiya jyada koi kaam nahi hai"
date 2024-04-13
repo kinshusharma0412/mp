@@ -1,27 +1,144 @@
-[33mcommit d812b132bf47ca2fb426f8376e992ee8d25e56f1[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+[33mcommit d8426357c009cee63068eafa967f6f1d22ff2945[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
 Author: kinshusharm0412 <kinshusharm0412@gmail.com>
-Date:   Sun Jan 14 20:06:43 2024 +0530
+Date:   Sat Apr 13 13:44:06 2024 +0530
 
     speed se push kiya jyada koi kaam nahi hai
 
+[1mdiff --git a/box.py b/box.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5b0e654[m
+[1m--- /dev/null[m
+[1m+++ b/box.py[m
+[36m@@ -0,0 +1,98 @@[m
+[32m+[m[32mimport requests,os[m
+[32m+[m[32mfrom urllib.parse import parse_qs, urlparse[m
+[32m+[m[32mfrom pprint import pprint[m
+[32m+[m[32mdef box(url):[m
+[32m+[m	[32mr = requests.Session()[m
+[32m+[m	[32murl="https://teraboxapp.com/s/1ECa8eaEAAMgBSEkDvxkmzA"[m
+[32m+[m	[32mheadersList = {[m
+[32m+[m	[32m        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",[m
+[32m+[m	[32m        "Accept-Encoding": "gzip, deflate, br",[m
+[32m+[m	[32m        "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",[m
+[32m+[m	[32m        "Connection": "keep-alive",[m
+[32m+[m	[32m        "Cookie": os.environ['Cookie'],[m
+[32m+[m	[32m        "DNT": "1",[m
+[32m+[m	[32m        "Host": "www.terabox.app",[m
+[32m+[m	[32m        "Sec-Fetch-Dest": "document",[m
+[32m+[m	[32m        "Sec-Fetch-Mode": "navigate",[m
+[32m+[m	[32m        "Sec-Fetch-Site": "none",[m
+[32m+[m	[32m        "Sec-Fetch-User": "?1",[m
+[32m+[m	[32m        "Upgrade-Insecure-Requests": "1",[m
+[32m+[m	[32m        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",[m
+[32m+[m	[32m        "sec-ch-ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',[m
+[32m+[m	[32m        "sec-ch-ua-mobile": "?0",[m
+[32m+[m	[32m        "sec-ch-ua-platform": '"Windows"',[m
+[32m+[m	[32m    }[m
+[32m+[m	[32mpayload = ""[m
+[32m+[m	[32mdef get_formatted_size(size_bytes: int) -> str:[m
+[32m+[m	[32m    """[m
+[32m+[m	[32m    Returns a human-readable file size from the given number of bytes.[m
+[32m+[m[41m	[m
+[32m+[m	[32m    Parameters:[m
+[32m+[m	[32m        size_bytes (int): The number of bytes to be converted to a file size.[m
+[32m+[m[41m	[m
+[32m+[m	[32m    Returns:[m
+[32m+[m	[32m        str: The file size in a human-readable format.[m
+[32m+[m	[32m    """[m
+[32m+[m	[32m    if size_bytes >= 1024 * 1024:[m
+[32m+[m	[32m        size = size_bytes / (1024 * 1024)[m
+[32m+[m	[32m        unit = "MB"[m
+[32m+[m	[32m    elif size_bytes >= 1024:[m
+[32m+[m	[32m        size = size_bytes / 1024[m
+[32m+[m	[32m        unit = "KB"[m
+[32m+[m	[32m    else:[m
+[32m+[m	[32m        size = size_bytes[m
+[32m+[m	[32m        unit = "b"[m
+[32m+[m[41m	[m
+[32m+[m	[32m    return f"{size:.2f} {unit}"[m
+[32m+[m	[32mdef extract_surl_from_url(url: str) -> str | None:[m
+[32m+[m	[32m    """[m
+[32m+[m	[32m    Extracts the surl parameter from a given URL.[m
+[32m+[m[41m	[m
+[32m+[m	[32m    Args:[m
+[32m+[m	[32m        url (str): The URL from which to extract the surl parameter.[m
+[32m+[m[41m	[m
+[32m+[m	[32m    Returns:[m
+[32m+[m	[32m        str: The surl parameter, or False if the parameter could not be found.[m
+[32m+[m	[32m    """[m
+[32m+[m	[32m    parsed_url = urlparse(url)[m
+[32m+[m	[32m    query_params = parse_qs(parsed_url.query)[m
+[32m+[m	[32m    surl = query_params.get("surl", [])[m
+[32m+[m[41m	[m
+[32m+[m	[32m    if surl:[m
+[32m+[m	[32m        return surl[0][m
+[32m+[m	[32m    else:[m
+[32m+[m	[32m        return False[m
+[32m+[m[41m	[m
+[32m+[m	[32mdef find_between(data: str, first: str, last: str) -> str | None:[m
+[32m+[m	[32m    try:[m
+[32m+[m	[32m        start = data.index(first) + len(first)[m
+[32m+[m	[32m        end = data.index(last, start)[m
+[32m+[m	[32m        return data[start:end][m
+[32m+[m	[32m    except ValueError:[m
+[32m+[m	[32m        return None[m
+[32m+[m[41m	[m
+[32m+[m	[32mresponse = r.get(url, data=payload, headers=headersList)[m
+[32m+[m[41m	[m
+[32m+[m	[32mresponse = r.get(response.url, data=payload, headers=headersList)[m
+[32m+[m	[32mlogid = find_between(response.text, "dp-logid=", "&")[m
+[32m+[m	[32mjsToken = find_between(response.text, "fn%28%22", "%22%29")[m
+[32m+[m	[32mbdstoken = find_between(response.text, 'bdstoken":"', '"')[m
+[32m+[m	[32mshorturl = extract_surl_from_url(response.url)[m
+[32m+[m[41m	[m
+[32m+[m	[32mreqUrl = f"https://www.terabox.app/share/list?app_id=250528&web=1&channel=0&jsToken={jsToken}&dp-logid={logid}&page=1&num=20&by=name&order=asc&site_referer=&shorturl={shorturl}&root=1"[m
+[32m+[m	[32mresponse = r.get(reqUrl, data=payload, headers=headersList)[m
+[32m+[m[41m	[m
+[32m+[m	[32mr_j = response.json()[m
+[32m+[m	[32mresponse = r.head(r_j["list"][0]["dlink"], headers=headersList)[m
+[32m+[m	[32mdirect_link = response.headers.get("location")[m
+[32m+[m	[32m#for x in r_j["list"][0]["thumbs"]:[m
+[32m+[m	[32m#	find_between(r_j["list"][0]["thumbs"][x], "size=", "&"))[m
+[32m+[m	[32mdata = {[m
+[32m+[m	[32m        "file_name": r_j["list"][0]["server_filename"],[m
+[32m+[m	[32m        "link": r_j["list"][0]["dlink"],[m
+[32m+[m	[32m        "direct_link": direct_link,[m
+[32m+[m	[32m        "thumb": [r_j["list"][0]["thumbs"][x] for x in r_j["list"][0]["thumbs"]],[m
+[32m+[m	[32m        "size": get_formatted_size(int(r_j["list"][0]["size"])),[m
+[32m+[m	[32m        "sizebytes": int(r_j["list"][0]["size"]),[m
+[32m+[m	[32m    }[m
+[32m+[m	[32mreturn (data)[m
 [1mdiff --git a/shubhem_bot.py b/shubhem_bot.py[m
-[1mindex 698bbff..fc89720 100644[m
+[1mindex c2a561e..7a9e9cd 100644[m
 [1m--- a/shubhem_bot.py[m
 [1m+++ b/shubhem_bot.py[m
-[36m@@ -160,6 +160,7 @@[m [mdef profile_photo_soojh():[m
- 	for x in robo.search_messages(random.choice(Profile_photo_soojh),filter=enums.MessagesFilter.PHOTO):[m
- 		ids.append({str(x.chat.id):x.id})[m
- 	choice=(random.choice(ids))[m
-[32m+[m	[32mcaption=""[m[41m[m
- 	try:[m
- 		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]+1))[m
- 		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)[m
-[36m@@ -167,7 +168,7 @@[m [mdef profile_photo_soojh():[m
- 		#print(photo)[m
- 		robo.send_photo("BotFather",photo,caption=caption )[m
- 	except Exception as e:[m
-[31m-		robo.send_message("kinbin246",str(e))[m
-[32m+[m		[32mrobo.send_message("kinbin246",str(e)+"\n\n"+caption,disable_web_page_preview=True)[m[41m[m
- 		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))[m
- 		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)[m
- 		photo=robo.download_media(photo.photo.file_id)[m
+[36m@@ -9,7 +9,7 @@[m [mfrom pyrogram.methods.utilities.idle import idle[m
+ import sys[m
+ url_page=sys.argv[1][m
+ print(url_page)[m
+[31m-[m
+[32m+[m[32mfrom box import box[m[41m[m
+ from pyrogram.raw import functions[m
+ from pyrogram.raw import types[m
+ from pyrogram.handlers import MessageHandler, PollHandler[m
+[36m@@ -41,6 +41,20 @@[m [mrobo = Client("ROBOT",[m
+ api_id="13682659",[m
+ api_hash="b984d240c5258407ea911f042c9d75f6")[m
+ [m
+[32m+[m[32m@shubham.on_message(filters.regex("^(https://.*app\.com.*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)[m[41m[m
+[32m+[m[32masync def job2g_partener4(client:Client,message:Message):[m[41m[m
+[32m+[m	[32myy=reaaa.split("\n",message.text)[m[41m[m
+[32m+[m	[32mfor x in yy:[m[41m[m
+[32m+[m		[32mtry:[m[41m[m
+[32m+[m			[32mdata=box(x)[m[41m[m
+[32m+[m			[32mchunk_size = 256[m[41m[m
+[32m+[m			[32mwith open("thumb.jpeg", 'wb') as f:[m[41m[m
+[32m+[m				[32mfor chunk in r.iter_content(chunk_size=chunk_size):[m[41m[m
+[32m+[m					[32mf.write(chunk)[m[41m[m
+[32m+[m			[32mawait client.send_video(message.chat.id,video=data["link"], caption=data["file_name"],thumb="thumb.jpeg",file_name=data["file_name"])[m[41m[m
+[32m+[m		[32mexcept Exception as e:[m[41m[m
+[32m+[m			[32mawait client.send_message(message.chat.id,str(e)[0:4090])[m[41m[m
+[32m+[m[41m[m
+ [m
+ @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)[m
+ async def job2g_partener2(client:Client,message:Message):[m
