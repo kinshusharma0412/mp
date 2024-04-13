@@ -3,7 +3,7 @@ from urllib.parse import parse_qs, urlparse
 from pprint import pprint
 def box(url):
 	r = requests.Session()
-	url="https://teraboxapp.com/s/1ECa8eaEAAMgBSEkDvxkmzA"
+	url=url
 	headersList = {
 	        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
 	        "Accept-Encoding": "gzip, deflate, br",
