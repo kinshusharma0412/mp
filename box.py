@@ -1,7 +1,7 @@
 import requests,os
 from urllib.parse import parse_qs, urlparse
 from pprint import pprint
-def box(url: str) -> str | None:
+def box(url: str) -> str:
 	r = requests.Session()
 	headersList = {
 	        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -43,7 +43,7 @@ def box(url: str) -> str | None:
 	        unit = "b"
 	
 	    return f"{size:.2f} {unit}"
-	def extract_surl_from_url(url: str) -> str | None:
+	def extract_surl_from_url(url: str) -> str:
 	    """
 	    Extracts the surl parameter from a given URL.
 	
@@ -62,7 +62,7 @@ def box(url: str) -> str | None:
 	    else:
 	        return False
 	
-	def find_between(data: str, first: str, last: str) -> str | None:
+	def find_between(data: str, first: str, last: str) -> str:
 	    try:
 	        start = data.index(first) + len(first)
 	        end = data.index(last, start)
