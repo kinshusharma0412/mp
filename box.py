@@ -100,7 +100,7 @@ def box(url: str) -> str:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
 			f.write(chunk)
 	r1 = requests.get(data["direct_link"],stream=True)
-	chunk_size = 256
+	chunk_size = 1024*1024
 	with open(data["file_name"], 'wb') as f:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
 			f.write(chunk)
