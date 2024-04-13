@@ -1,4 +1,5 @@
 import requests,os
+from tqdm import tqdm
 from urllib.parse import parse_qs, urlparse
 from pprint import pprint
 def box(url: str) -> str:
@@ -99,9 +100,13 @@ def box(url: str) -> str:
 	with open("thumb.jpeg", 'wb') as f:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
 			f.write(chunk)
-	r1 = requests.get(data["link"],stream=True)
-	chunk_size = 1024*1024
-	with open(data["file_name"], 'wb') as f:
-		for chunk in r1.iter_content(chunk_size=chunk_size):
-			f.write(chunk)
+	response = requests.get(data["link"], stream=True)
+	total_size_in_bytes= int(response.headers.get('content-length', 0))
+	block_size = 1024 #1 Kibibyte
+	progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
+	with open(filename+data["file_name"], 'wb') as file:
+		for chunka in response.iter_content(block_size):
+			progress_bar.update(len(chunka))
+			file.write(chunka)
+	progress_bar.close()
 	return (data)
