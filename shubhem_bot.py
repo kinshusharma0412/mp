@@ -41,7 +41,7 @@ robo = Client("ROBOT",
 api_id="13682659",
 api_hash="b984d240c5258407ea911f042c9d75f6")
 
-@shubham.on_message(filters.regex("^https://.*app\.com.*?") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
+@shubham.on_message(filters.regex("^https\://.*app\.com.*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
 	await client.send_message(message.chat.id,str("downloading is progressing..."))
