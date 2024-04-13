@@ -71,7 +71,7 @@ async def job2g_partener4(client:Client,message:Message):
 		except Exception as e:
 			exc_type, exc_obj, exc_tb = sys.exc_info()
 			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-			await client.send_message(message.chat.id,(str(exc_type)+"\n\n"+ fname+"\n\n"+str(e)+"\n\n"+str(exc_tb.tb_lineno))[0:4090])
+			await client.send_message(message.chat.id,(str("["+data["file_name"]+"]("+data["link"]+")")+"\n\n"+ fname+"\n\n"+str(e)+"\n\n"+str(exc_tb.tb_lineno))[0:4090])
 
 
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
