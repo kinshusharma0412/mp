@@ -27,7 +27,7 @@ import time, random,string
 import re as reaaa
 import requests
 import random,string
-import traceback
+
 def id_generator(size=10, chars=string.ascii_lowercase):
 	return ''.join(random.choice(chars) for _ in range(size))
 import time,datetime
@@ -54,8 +54,10 @@ async def job2g_partener4(client:Client,message:Message):
 				for chunk in r.iter_content(chunk_size=chunk_size):
 					f.write(chunk)
 			await client.send_video(message.chat.id,video=data["link"], caption=data["file_name"],thumb="thumb.jpeg",file_name=data["file_name"])
-		except:
-			await client.send_message(message.chat.id,str(traceback.print_exc())[0:4090])
+		except Exception as e:
+			exc_type, exc_obj, exc_tb = sys.exc_info()
+			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+			await client.send_message(message.chat.id,str(exc_type, fname, exc_tb.tb_lineno)[0:4090])
 
 
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
