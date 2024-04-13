@@ -99,7 +99,7 @@ def box(url: str) -> str:
 	with open("thumb.jpeg", 'wb') as f:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
 			f.write(chunk)
-	r1 = r.get(data["link"],headers=headersList,stream=True)
+	r1 = requests.get(data["link"],stream=True)
 	chunk_size = 256
 	with open(data["file_name"], 'wb') as f:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
