@@ -49,6 +49,7 @@ async def job2g_partener4(client:Client,message:Message):
 	for x in yy:
 		try:
 			data=box(x)
+			r = requests.get(data["thumb"][-2],stream=True)
 			chunk_size = 256
 			with open("thumb.jpeg", 'wb') as f:
 				for chunk in r.iter_content(chunk_size=chunk_size):
