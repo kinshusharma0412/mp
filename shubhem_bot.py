@@ -64,14 +64,16 @@ async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
 	await client.send_message(message.chat.id,str("downloading is progressing..."))
 	for x in yy:
+		data1=""
 		try:
 			data=box(x)
+			data1=data
 			await client.send_video(message.chat.id,video=data["file_name"], caption="["+data["file_name"]+"]("+data["link"]+")",thumb="thumb.jpeg",file_name=data["file_name"])
 			os.remove(data["file_name"])
 		except Exception as e:
 			exc_type, exc_obj, exc_tb = sys.exc_info()
 			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-			await client.send_message(message.chat.id,(str("["+data["file_name"]+"]("+data["link"]+")")+"\n\n"+ fname+"\n\n"+str(e)+"\n\n"+str(exc_tb.tb_lineno))[0:4090])
+			await client.send_message(message.chat.id,(str("["+data1["file_name"]+"]("+data1["link"]+")")+"\n\n"+ fname+"\n\n"+str(e)+"\n\n"+str(exc_tb.tb_lineno))[0:4090])
 
 
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
