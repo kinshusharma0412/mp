@@ -1,7 +1,7 @@
 import requests,os
 from urllib.parse import parse_qs, urlparse
 from pprint import pprint
-def box((url: str) -> str | None:
+def box(url: str) -> str | None:
 	r = requests.Session()
 	headersList = {
 	        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
