@@ -94,4 +94,14 @@ def box(url: str) -> str:
 	        "size": get_formatted_size(int(r_j["list"][0]["size"])),
 	        "sizebytes": int(r_j["list"][0]["size"]),
 	    }
+	r1 = r.get(data["thumb"][-2],headers=headersList,stream=True)
+	chunk_size = 256
+	with open("thumb.jpeg", 'wb') as f:
+		for chunk in r1.iter_content(chunk_size=chunk_size):
+			f.write(chunk)
+	r1 = r.get(data["link"],headers=headersList,stream=True)
+	chunk_size = 256
+	with open(data["file_name"], 'wb') as f:
+		for chunk in r1.iter_content(chunk_size=chunk_size):
+			f.write(chunk)
 	return (data)

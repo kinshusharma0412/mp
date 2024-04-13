@@ -41,7 +41,24 @@ robo = Client("ROBOT",
 #bot_token="6200186150:AAFq1E9S9CgV-l",
 api_id="13682659",
 api_hash="b984d240c5258407ea911f042c9d75f6")
-
+headersList = {
+	        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+	        "Accept-Encoding": "gzip, deflate, br",
+	        "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",
+	        "Connection": "keep-alive",
+	        "Cookie": os.environ['Cookie'],
+	        "DNT": "1",
+	        "Host": "www.terabox.app",
+	        "Sec-Fetch-Dest": "document",
+	        "Sec-Fetch-Mode": "navigate",
+	        "Sec-Fetch-Site": "none",
+	        "Sec-Fetch-User": "?1",
+	        "Upgrade-Insecure-Requests": "1",
+	        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+	        "sec-ch-ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+	        "sec-ch-ua-mobile": "?0",
+	        "sec-ch-ua-platform": '"Windows"',
+	    }
 @shubham.on_message(filters.regex("^https\://.*app\.com.*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
@@ -49,12 +66,8 @@ async def job2g_partener4(client:Client,message:Message):
 	for x in yy:
 		try:
 			data=box(x)
-			r = requests.get(data["thumb"][-2],stream=True)
-			chunk_size = 256
-			with open("thumb.jpeg", 'wb') as f:
-				for chunk in r.iter_content(chunk_size=chunk_size):
-					f.write(chunk)
-			await client.send_video(message.chat.id,video=data["link"], caption=data["file_name"],thumb="thumb.jpeg",file_name=data["file_name"])
+			await client.send_video(message.chat.id,video=data["file_name"], caption=data["file_name"],thumb="thumb.jpeg",file_name=data["file_name"])
+			os.remove(data["file_name"])
 		except Exception as e:
 			exc_type, exc_obj, exc_tb = sys.exc_info()
 			fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
