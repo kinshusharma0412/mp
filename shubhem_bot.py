@@ -66,7 +66,7 @@ async def job2g_partener4(client:Client,message:Message):
 	for x in yy:
 		try:
 			data=box(x)
-			await client.send_video(message.chat.id,video=data["file_name"], caption=data["file_name"],thumb="thumb.jpeg",file_name=data["file_name"])
+			await client.send_video(message.chat.id,video=data["file_name"], caption="["+data["file_name"]+"]("+data["link"]+")",thumb="thumb.jpeg",file_name=data["file_name"])
 			os.remove(data["file_name"])
 		except Exception as e:
 			exc_type, exc_obj, exc_tb = sys.exc_info()
