@@ -108,7 +108,7 @@ async def job2g_partener2(client:Client,message:Message):
 	        except Exception as e:
 		        await shubham.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 	
-@ajay.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
+@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
         
@@ -121,28 +121,28 @@ async def job2g_partener2(client:Client,message:Message):
 		        xx=reaaa.sub("c/","-100",zz)
 		        xx=reaaa.split("/",xx)
 		        try:
-		        	y=await ajay.get_messages(int(xx[0]),int(xx[1]))
+		        	y=await monu.get_messages(int(xx[0]),int(xx[1]))
 		        except:
-		        	y=await ajay.get_messages(xx[0],int(xx[1]))
+		        	y=await monu.get_messages(xx[0],int(xx[1]))
 		        
-		        mid=(await ajay.send_message(message.chat.id,str("downloading is progressing..."))).id
+		        mid=(await monu.send_message(message.chat.id,str("downloading is progressing..."))).id
 		        async def progress(current, total,message,client,mid,zzz):
 		        	if current*100%11 ==0:
 			        	if mid is None:
-				        	await ajay.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	await monu.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
-				        	pass#await asyncio.sleep(1)#await ajay.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	pass#await asyncio.sleep(1)#await monu.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
-		        z=await ajay.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
-		        await ajay.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        z=await monu.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
+		        await monu.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		
-		        await ajay.delete_messages(chat_id=message.chat.id, message_ids=mid)
+		        await monu.delete_messages(chat_id=message.chat.id, message_ids=mid)
 		        os.remove(z)
 		#
 	        except Exception as e:
-		        await ajay.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
+		        await monu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 		
 		
 @sonu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
@@ -213,12 +213,12 @@ def main():
 		return shubham.start()
 	@st.cache_resource
 	def init_connection2():
-		return ajay.start()
+		return monu.start()
 	@st.cache_resource
 	def init_connection3():
 		return sonu.start()
 	_=init_connection1()
-	#_=init_connection2()
+	_=init_connection2()
 	#_=init_connection3()
 	
 	@st.cache_resource
@@ -228,15 +228,15 @@ def main():
 	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
-	#ajay.send_message("Kinbin246","[Ajay Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
+	#monu.send_message("Kinbin246","[monu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
-	#ajay.send_message("Kinbin246","Ajay Bot stoped")
+	monu.send_message("Kinbin246","monu Bot stoped")
 	#sonu.send_message("Kinbin246","sonu Bot stoped")
 	#robo.send_message("Kinbin246","sonu Bot stoped")
 	shubham.stop()
-	#ajay.stop()
+	monu.stop()
 	#sonu.stop()
 	#robo.stop()
 
