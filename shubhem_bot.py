@@ -81,32 +81,32 @@ async def job2g_partener2(client:Client,message:Message):
 		        xx=reaaa.sub("c/","-100",zz)
 		        xx=reaaa.split("/",xx)
 		        try:
-		        	y=await shubham.get_messages(int(xx[0]),int(xx[1]))
+		        	y=await client.get_messages(int(xx[0]),int(xx[1]))
 		        except:
-		        	y=await shubham.get_messages(xx[0],int(xx[1]))
+		        	y=await client.get_messages(xx[0],int(xx[1]))
 		        
-		        mid=(await shubham.send_message(message.chat.id,str("downloading is progressing..."))).id
+		        mid=(await client.send_message(message.chat.id,str("downloading is progressing..."))).id
 		        async def progress(current, total,message,client,mid,zzz):
 		        	if current*100%11 ==0:
 			        	if mid is None:
-				        	await shubham.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	await client.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
 				        	pass#await asyncio.sleep(1)#await shubham.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
-		        z=await shubham.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
+		        z=await client.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
 		        if "." in z:
-		        	await shubham.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        	await client.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		        
 		        else:
-		        	await shubham.send_document(message.chat.id,z,caption=str(y.caption),file_name=reaaa.split("/",z)[-1]+".mp4",caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        	await client.send_document(message.chat.id,z,caption=str(y.caption),file_name=reaaa.split("/",z)[-1]+".mp4",caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		
-		        await shubham.delete_messages(chat_id=message.chat.id, message_ids=mid)
+		        await client.delete_messages(chat_id=message.chat.id, message_ids=mid)
 		        os.remove(z)
 		#
 	        except Exception as e:
-		        await shubham.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
+		        await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 	
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
@@ -228,7 +228,7 @@ def main():
 	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
-	#monu.send_message("Kinbin246","[monu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
+	monu.send_message("Kinbin246","[monu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
