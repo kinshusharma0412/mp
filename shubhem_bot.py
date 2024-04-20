@@ -35,7 +35,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
 scheduler.start()
 shubham=Client("shubhem new",session_string=os.environ['shubhem'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
-monu=Client("monu",session_string=os.environ['shubhem'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+monu=Client("monu",session_string=os.environ['monu'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 sonu=Client("sonu kumar",session_string="BQDQx-MAu5H0aHV_jebewJzC_jqu4v4ZhB94iPIs9JLLkkjHSPrEbC8AGTX-IzOFI7ijQ1mdmwNpXZFL5fANFSBy2M5r6zUJltR-xJsQicsIeQZ0QjCUeFA6o64KIENGE0j_K6UssGwh7j-G9uHcPPN1dthewNzdDLcRvITu9Gcx1EsUjvQth_TZz5AxudPX6fnAOolKIa3BIEJKAUFHbpfyCp8Xq_HjdcFilHwy4KSd0I_xc_uE1UxYBfO3EPaT-GPbfseGdI_FpPYrTAusD_HMToTkVy0b41Hw5QI6FAYr8_7AqcMY-SzH6wJufhHKjUOOvwAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 robo = Client("ROBOT",
 #bot_token="6200186150:AAFq1E9S9CgV-l",
@@ -67,7 +67,7 @@ async def job2g_partener4(client:Client,message:Message):
 		await client.send_photo(message.chat.id,"thumb.jpeg", caption=str("["+data["file_name"]+"]("+data["link"]+")\n\nSize = "+data["size"])[0:4090])
 			
 
-@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
+@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.private & ~ filters.scheduled )#& filters.incoming)
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
@@ -108,7 +108,7 @@ async def job2g_partener2(client:Client,message:Message):
 	        except Exception as e:
 		        await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 	
-@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
+#@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
         
