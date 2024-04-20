@@ -67,7 +67,7 @@ async def job2g_partener4(client:Client,message:Message):
 		await client.send_photo(message.chat.id,"thumb.jpeg", caption=str("["+data["file_name"]+"]("+data["link"]+")\n\nSize = "+data["size"])[0:4090])
 			
 
-@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.private & ~ filters.scheduled )#& filters.incoming)
+@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
