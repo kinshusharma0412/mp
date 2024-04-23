@@ -109,7 +109,8 @@ async def job2g_partener2(client:Client,message:Message):
 				os.remove(z)
 		#
 			except Exception as e:
-				await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))	
+				await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
+		await asyncio.sleep(1)
 	
 #@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
