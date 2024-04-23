@@ -109,46 +109,7 @@ async def job2g_partener2(client:Client,message:Message):
 				os.remove(z)
 		#
 			except Exception as e:
-				await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
-	
-#@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
-async def job2g_partener2(client:Client,message:Message):
-	
-		yy=reaaa.split("-|/",message.text)
-		zz="/".join(yy)
-		
-		
-		yy=reaaa.split("\n",message.text)
-		for x in yy:
-			mid=None
-			try:
-				zz=reaaa.sub("^(https://t.me/|Me/)","",x)
-				xx=reaaa.sub("c/","-100",zz)
-				xx=reaaa.split("/",xx)
-				try:
-					y=await monu.get_messages(int(xx[0]),int(xx[1]))
-				except:
-					y=await monu.get_messages(xx[0],int(xx[1]))
-				
-				mid=(await monu.send_message(message.chat.id,str("downloading is progressing..."))).id
-				async def progress(current, total,message,client,mid,zzz):
-					if current*100%11 ==0:
-						if mid is None:
-							await monu.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
-						else:
-							pass#await asyncio.sleep(1)#await monu.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
-				
-				
-				
-				z=await monu.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
-				await monu.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
-		
-				await monu.delete_messages(chat_id=message.chat.id, message_ids=mid)
-				os.remove(z)
-		#
-			except Exception as e:
-				await monu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
-		
+				await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))	
 	
 #@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
