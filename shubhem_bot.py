@@ -88,7 +88,7 @@ async def job2g_partener2(client:Client,message:Message):
 				except:
 					y=await client.get_messages(xx[0],int(xx[1]))
 				
-				mid=(await client.send_message(message.chat.id,str("downloading is progressing..."))).id
+				mid=(await client.send_message(message.chat.id,str(str(xx[1])+"). downloading is progressing..."))).id
 				async def progress(current, total,message,client,mid,zzz):
 					if current*100%11 ==0:
 						if mid is None:
