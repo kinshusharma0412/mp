@@ -4,7 +4,7 @@ headers = {
   'Accept': "application/json, text/plain, */*",
   'Accept-Encoding': "gzip, deflate, br, zstd",
   'sec-ch-ua': "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
-  'x-csrf-token': os.environ["x-csrf-token"],
+  'x-csrf-token': os.environ["xcsrftoken"],
   'sec-ch-ua-mobile': "?1",
   'sec-ch-ua-platform': "\"Android\"",
   'origin': "https://share.streamlit.io",
