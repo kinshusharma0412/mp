@@ -210,7 +210,8 @@ def profile_photo_soojh():
 		robo.send_photo("BotFather",photo,caption=caption )
 	os.remove(photo)
 #scheduler.add_job(profile_photo_soojh,"interval", minutes=1,id="minutes")
-print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=15,args=("x",)))
+print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=50,args=("x",)))
+print(scheduler.add_job(hibernation, 'cron', hour=4,minute=50,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
 def main():
 	@st.cache_resource
 	def init_connection1():
