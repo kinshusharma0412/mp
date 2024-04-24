@@ -27,7 +27,7 @@ import time, random,string
 import re as reaaa
 import requests
 import random,string
-from restart_bot import all_restart_hibernation,hibernation
+
 def id_generator(size=10, chars=string.ascii_lowercase):
 	return ''.join(random.choice(chars) for _ in range(size))
 import time,datetime
@@ -210,8 +210,8 @@ def profile_photo_soojh():
 		robo.send_photo("BotFather",photo,caption=caption )
 	os.remove(photo)
 #scheduler.add_job(profile_photo_soojh,"interval", minutes=1,id="minutes")
-print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=50,args=("x",)))
-print(scheduler.add_job(hibernation, 'cron', hour=4,minute=50,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
+#print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=50,args=("x",)))
+#print(scheduler.add_job(hibernation, 'cron', hour=4,minute=50,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
 def main():
 	@st.cache_resource
 	def init_connection1():

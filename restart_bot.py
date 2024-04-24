@@ -1,4 +1,8 @@
-import requests ,os
+import requests, os, asyncio
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
+scheduler.start()
+
 headers = {
   'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
   'Accept': "application/json, text/plain, */*",
@@ -25,10 +29,12 @@ def all_restart_hibernation(x):
 	app_1=[]
 	for x in app_:
 		if x['appId']!='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
-			app_1.append(x)
+			if x['status']==12:
+				app_1.append(x)
 	for x in app_:
 		if x['appId']=='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
-			app_1.append(x)
+			if x['status']==12:
+				app_1.append(x)
 	
 	for app_id in app_1:
 		url = "https://share.streamlit.io/api/v2/apps/"+str(app_id['appId'])+"/restart"
@@ -39,3 +45,11 @@ def hibernation(x):
 	url = "https://share.streamlit.io/api/v2/apps/"+str(x)+"/restart"
 	response = requests.post(url, headers=headers)
 	print(response.text)
+
+print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=5,args=("x",)))
+    
+if __name__ == "__main__":
+    try:
+        asyncio.get_event_loop().run_forever()
+    except (KeyboardInterrupt, SystemExit):
+        pass
