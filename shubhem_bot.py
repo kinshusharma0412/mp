@@ -211,7 +211,27 @@ def profile_photo_soojh():
 	os.remove(photo)
 #scheduler.add_job(profile_photo_soojh,"interval", minutes=1,id="minutes")
 #print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=50,args=("x",)))
-#print(scheduler.add_job(hibernation, 'cron', hour=4,minute=50,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
+def hibernation(x):
+	headers = {
+  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
+  'Accept': "application/json, text/plain, */*",
+  'Accept-Encoding': "gzip, deflate, br, zstd",
+  'sec-ch-ua': "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
+  'x-csrf-token': os.environ["xcsrftoken"],
+  'sec-ch-ua-mobile': "?1",
+  'sec-ch-ua-platform': "\"Android\"",
+  'origin': "https://share.streamlit.io",
+  'sec-fetch-site': "same-origin",
+  'sec-fetch-mode': "cors",
+  'sec-fetch-dest': "empty",
+  'referer': "https://share.streamlit.io/",
+  'accept-language': "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
+  'Cookie': os.environ["cookies_header"]
+}
+	url = "https://share.streamlit.io/api/v2/apps/"+x+"/restart"
+	response = requests.post(url, headers=headers)
+	shubham.send_message("Kinbin246","bot start message\n\n"+str(response.text))
+print(scheduler.add_job(hibernation, 'cron', hour=4,minute=50,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
 def main():
 	@st.cache_resource
 	def init_connection1():
