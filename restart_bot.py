@@ -17,27 +17,25 @@ headers = {
 }
 def all_restart_hibernation(x):
 	url = "https://share.streamlit.io/api/v1/apps"
-	
 	params = {
 	  'workspace_name': "kinshusharma0412"
 	}
-
 	response = requests.get(url, params=params, headers=headers)
+	app_=response.json()['apps']
+	app_1=[]
+	for x in app_:
+		if x['appId']!='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
+			app_1.append(x)
+	for x in app_:
+		if x['appId']=='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
+			app_1.append(x)
 	
-	
-	
-	for app_id in response.json()['apps']:
-	
+	for app_id in app_1:
 		url = "https://share.streamlit.io/api/v2/apps/"+str(app_id['appId'])+"/restart"
-	
-	
-		
 		response = requests.post(url, headers=headers)
 		print(response.text)
 
 def hibernation(x):
 	url = "https://share.streamlit.io/api/v2/apps/"+str(x)+"/restart"
-	
-	
 	response = requests.post(url, headers=headers)
 	print(response.text)
