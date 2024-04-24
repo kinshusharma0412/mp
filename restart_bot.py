@@ -8,6 +8,8 @@ async def job():
 
 scheduler.add_job(job, "interval", seconds=3)
 
-scheduler.start()
 
-asyncio.get_event_loop().run_forever()
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+scheduler.start()
