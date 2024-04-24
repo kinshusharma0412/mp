@@ -1,7 +1,8 @@
 import requests, os, asyncio, time
+from pyrogram.methods.utilities.idle import idle
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
-scheduler.start()
+
 
 headers = {
   'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
@@ -49,8 +50,8 @@ def hibernation(x):
 
 print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=10,args=("x",)))
 def main():
-	while True:
-		asyncio.sleep(1)
+	scheduler.start()
+	idle()
 
 	
 if __name__ == '__main__':
