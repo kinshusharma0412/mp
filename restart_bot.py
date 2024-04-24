@@ -15,7 +15,7 @@ headers = {
 	  'accept-language': "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
 	  'Cookie':os.environ["cookies_header"]
 	}
-def all_restart_hibernation(x)
+def all_restart_hibernation(x):
 	url = "https://share.streamlit.io/api/v1/apps"
 	
 	params = {
@@ -35,7 +35,7 @@ def all_restart_hibernation(x)
 		response = requests.post(url, headers=headers)
 		print(response.text)
 
-def hibernation(x)
+def hibernation(x):
 	url = "https://share.streamlit.io/api/v2/apps/"+str(x)+"/restart"
 	
 	
