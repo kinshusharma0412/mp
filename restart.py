@@ -48,7 +48,7 @@ def hibernation(x):
 	response = requests.post(url, headers=headers)
 	print(response.text)
 
-print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=1,args=("x",)))
+print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=10,args=("x",)))
 def main():
 	scheduler.start()
 	idle()
