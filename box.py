@@ -18,7 +18,12 @@ def box(video):
 	}
 	
 	response = requests.post(url, data=payload, headers=headers)
-	import shutil
+	res=response.json()
+	r1 = requests.get(res[0]["thumbs"][-1],stream=True)
+	chunk_size = 256
+	with open("thumb.jpeg", 'wb') as f:
+		for chunk in r1.iter_content(chunk_size=chunk_size):
+			f.write(chunk)
 	res=response.json()
 	url = "https://tera.backend.live/stream-app"
 	
@@ -55,4 +60,4 @@ def box(video):
 			r = requests.get(x, stream=True)
 			for chunk in r.iter_content(chunk_size=1024*64):
 				f.write(chunk)
-	return res[0]["server_filename"]
+	return res[0]["server_filename"],"thumb.jpeg"

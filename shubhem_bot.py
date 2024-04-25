@@ -65,13 +65,14 @@ async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
 	for x in yy:
 		mid=(await client.send_message(message.chat.id,"Downloading is progressing...")).id
-		data=box(x)
+		data,thumb=box(x)
 		await client.edit_message_text(chat_id=message.chat.id,message_id=mid,
     text="Uploadingis progressing..."
 )
-		await client.send_video(message.chat.id,data)
+		await client.send_video(message.chat.id,data,thumb=thumb)
 		await client.delete_messages(chat_id=message.chat.id,message_id=mid)
 		os.remove(data)
+		
 			
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
