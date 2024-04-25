@@ -70,7 +70,7 @@ async def job2g_partener4(client:Client,message:Message):
     text="Uploadingis progressing..."
 )
 		await client.send_video(message.chat.id,data,thumb=thumb)
-		await client.delete_messages(chat_id=message.chat.id,message_id=mid)
+		await client.delete_messages(message.chat.id,mid)
 		os.remove(data)
 		
 			
