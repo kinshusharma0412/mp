@@ -60,12 +60,13 @@ headersList = {
 	        "sec-ch-ua-mobile": "?0",
 	        "sec-ch-ua-platform": '"Windows"',
 	    }
-@mohit.on_message(filters.regex("^https\://.*app\.com.*?\n") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
+@mohit.on_message(filters.regex("^https\://.*app\.com.*?\n") & filters.chat(["kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
 	for x in yy:
 		data=box(x)
-		await client.send_photo(message.chat.id,"thumb.jpeg", caption=str("["+data["file_name"]+"]("+data["link"]+")\n\nSize = "+data["size"])[0:4090])
+		await client.send_video(message.chat.id,data)
+		os.remove(data)
 			
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
