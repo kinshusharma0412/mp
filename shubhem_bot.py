@@ -231,7 +231,7 @@ def hibernation(x):
 	url = "https://share.streamlit.io/api/v2/apps/"+x+"/restart"
 	response = requests.post(url, headers=headers)
 	shubham.send_message("Kinbin246","bot start message\n\n"+str(response.text))
-print(scheduler.add_job(hibernation, 'cron', hour=9,minute=43,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
+print(scheduler.add_job(hibernation, 'cron', hour=9,minute=46,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
 print(scheduler.add_job(hibernation, 'cron', hour=16,minute=40,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
 def main():
 	@st.cache_resource
