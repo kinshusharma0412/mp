@@ -233,7 +233,8 @@ def hibernation(x):
 	shubham.send_message("Kinbin246","bot start message\n\n"+str(response.text))
 for x in range(1,24):
 	print(scheduler.add_job(hibernation, 'cron', hour=x,minute=40,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
-
+print(scheduler.add_job(hibernation, 'cron', hour=7,minute=30,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
+print(scheduler.add_job(hibernation, 'cron', hour=15,minute=30,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
 def main():
 	@st.cache_resource
 	def init_connection1():
