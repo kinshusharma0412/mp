@@ -1,7 +1,7 @@
 import requests,re
 import json,os
 from pprint import pprint
-
+import re,subprocess
 def box(video):
 	
 	url = "https://teradownloader.com/api/application"
@@ -47,17 +47,17 @@ def box(video):
 	response = requests.post(url, data=payload, headers=headers)
 	
 	streaming_url=response.json()
-	print(streaming_url)
-	newurl=requests.get(streaming_url["streaming_url"], stream=True).text
-	urls=newurl.split("\n")
-	newurl=[]
-	for x in urls:
-		if bool(re.search("v2.terabox.app",x)):
-			newurl.append(x)
-	
-	with open(res[0]["server_filename"], "wb") as f:
-		for x in newurl:
-			r = requests.get(x, stream=True)
-			for chunk in r.iter_content(chunk_size=1024*64):
-				f.write(chunk)
-	return res[0]["server_filename"],"thumb.jpeg"
+	subprocess.call('ffmpeg -i "'+streaming_url["streaming_url"]+'" -bsf:a aac_adtstoasc -crf 0 ' +res[0]["server_filename"]+".mp4",shell=True)
+#	newurl=requests.get(streaming_url["streaming_url"], stream=True).text
+#	urls=newurl.split("\n")
+#	newurl=[]
+#	for x in urls:
+#		if bool(re.search("terabox.app",x)):
+#			newurl.append(x)
+#	
+#	with open(res[0]["server_filename"], "wb") as f:
+#		for x in newurl:
+#			r = requests.get(x, stream=True)
+#			for chunk in r.iter_content(chunk_size=1024):
+#				f.write(chunk)
+	return res[0]["server_filename"]+".mp4","thumb.jpeg"
