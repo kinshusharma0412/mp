@@ -67,9 +67,9 @@ async def job2g_partener4(client:Client,message:Message):
 	for x in yy:
 		
 		data,thumb=box(x)
-		
+		await asyncio.sleep(1)
 		await client.send_video(message.chat.id,data,thumb=thumb)
-		
+		await asyncio.sleep(1)
 		os.remove(data)
 		
 			
