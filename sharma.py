@@ -37,6 +37,8 @@ try:
 except:
 	 import dns
 from pymongo import MongoClient
+import uvloop
+uvloop.install()
 mongodb=os.environ['mongodb']
 bot_token=os.environ['bot_token']
 cm=clientmongo=MongoClient(mongodb)

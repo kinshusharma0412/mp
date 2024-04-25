@@ -27,7 +27,8 @@ import time, random,string
 import re as reaaa
 import requests
 import random,string
-
+import uvloop
+uvloop.install()
 def id_generator(size=10, chars=string.ascii_lowercase):
 	return ''.join(random.choice(chars) for _ in range(size))
 import time,datetime

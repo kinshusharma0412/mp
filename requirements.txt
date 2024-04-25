@@ -5,4 +5,4 @@ apscheduler
 streamlit_javascript
 pymongo
 git+https://github.com/rthalley/dnspython
-tqdm
+uvloop
