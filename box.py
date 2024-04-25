@@ -19,7 +19,7 @@ def box(video):
 	
 	response = requests.post(url, data=payload, headers=headers)
 	res=response.json()
-	r1 = requests.get(res[0]["thumbs"][-1],stream=True)
+	r1 = requests.get(res[0]["thumbs"]['url3'],stream=True)
 	chunk_size = 256
 	with open("thumb.jpeg", 'wb') as f:
 		for chunk in r1.iter_content(chunk_size=chunk_size):
