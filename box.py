@@ -42,6 +42,7 @@ def box(video):
 	response = requests.post(url, data=payload, headers=headers)
 	
 	streaming_url=response.json()
+	print(streaming_url)
 	newurl=requests.get(streaming_url["streaming_url"], stream=True).text
 	urls=newurl.split("\n")
 	newurl=[]
