@@ -6,3 +6,4 @@ streamlit_javascript
 pymongo
 git+https://github.com/rthalley/dnspython
 uvloop
+tqdm
