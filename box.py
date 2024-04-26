@@ -47,7 +47,7 @@ def box(video):
 	response = requests.post(url, data=payload, headers=headers)
 	
 	streaming_url=response.json()
-	subprocess.call('ffmpeg -i "'+streaming_url["streaming_url"]+'" -bsf:a aac_adtstoasc -crf 0 ' +res[0]["server_filename"]+".mp4",shell=True)
+	subprocess.call('ffmpeg -i "'+streaming_url["streaming_url"]+'" -bsf:a aac_adtstoasc -crf 10 ' +res[0]["server_filename"]+".mp4",shell=True)
 #	newurl=requests.get(streaming_url["streaming_url"], stream=True).text
 #	urls=newurl.split("\n")
 #	newurl=[]
