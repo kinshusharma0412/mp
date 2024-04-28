@@ -27,6 +27,7 @@ import time, random,string
 import re as reaaa
 import requests
 import random,string
+from lprog_bar import progress_for_pyrogram
 import uvloop
 uvloop.install()
 def id_generator(size=10, chars=string.ascii_lowercase):
@@ -69,7 +70,7 @@ async def job2g_partener4(client:Client,message:Message):
 		
 		data,thumb=box(x)
 		await asyncio.sleep(1)
-		await client.send_video(message.chat.id,data,thumb=thumb)
+		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,)
 		await asyncio.sleep(1)
 		os.remove(data)
 		
