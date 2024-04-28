@@ -27,7 +27,7 @@ import time, random,string
 import re as reaaa
 import requests
 import random,string
-from lprog_bar import progress_for_pyrogram
+from prog_bar import progress_for_pyrogram
 import uvloop
 uvloop.install()
 def id_generator(size=10, chars=string.ascii_lowercase):
