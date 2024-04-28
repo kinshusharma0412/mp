@@ -257,7 +257,7 @@ async def box(video,message):
 	now = time.time()
 	
 	with open(params["fin"], "wb") as handle:
-		dl=0
+	    dl=0
 	    for data in tqdm(response.iter_content(chunk_size=1024*1024)):
 	        dl+=len(data)
 	        await progress_for_pyrogram(current=dl,
