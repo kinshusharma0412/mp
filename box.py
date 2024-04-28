@@ -1,9 +1,11 @@
-import requests,os
+import requests,os,time
 from tqdm import tqdm
 from pprint import pprint as p
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
-def box(video):
+from helpers.prog_bar import progress_for_pyrogram
+async def box(video,message):
+	
 	
 	url = "http://www.nephobox.com/api/shorturlinfo"
 	
@@ -241,17 +243,28 @@ def box(video):
 	  'Range': "bytes=0-"+params['size']
 	}
 	
+	
 	response = requests.get(res1["list"][0]["thumbs"]['url3'], stream=True)
 	with open("thumb.jpeg", "wb") as handle:
 	    for data in tqdm(response.iter_content()):
 	        handle.write(data)
 	response = requests.get(url.split("?")[0], params=params, headers=headers,stream=True)
+	total_length = int(params['size'])
 	
 	
-	with open(params["fin"],'wb') as f: 
-	    f.write(response.content)
+#	with open(params["fin"],'wb') as f: 
+#	    f.write(response.content)
+	now = time.time()
 	
-	#with open(params["fin"], "wb") as handle:
-#	    for data in tqdm(response.iter_content(chunk_size=1024*1024)):
-#	        handle.write(data)
+	with open(params["fin"], "wb") as handle:
+		dl=0
+	    for data in tqdm(response.iter_content(chunk_size=1024*1024)):
+	        dl+=len(data)
+	        await progress_for_pyrogram(current=dl,
+    total=total_length,
+    ud_type="Downloading :-  "+params["fin"],
+    message=message,
+    start=now)
+	        
+	        handle.write(data)
 	return params["fin"],"thumb.jpeg"
