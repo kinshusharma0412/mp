@@ -30,11 +30,11 @@ def all_restart_hibernation(x):
 	app_1=[]
 	for x in app_:
 		if x['appId']!='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
-			if x['status']!=5:
+			if x['status'] not in [5,6]:
 				app_1.append(x)
 	for x in app_:
 		if x['appId']=='1e9c1a5d-3cb7-4434-aff7-5a3ab1b6c13c':
-			if x['status']!=5:
+			if x['status'] not in [5,6]:
 				app_1.append(x)
 	
 	for app_id in app_1:
