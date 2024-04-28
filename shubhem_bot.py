@@ -65,13 +65,14 @@ headersList = {
 @mohit.on_message(filters.regex("^https\://.*app\.com.*?") & filters.chat(["kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
-	await client.send_message(message.chat.id,"Downloading is progressing...")
+	
 	for x in yy:
+		mess=await client.send_message(message.chat.id,"Downloading is progressing...")
 		file_name=x
-		data,thumb=await box(x,message)
+		data,thumb=await box(x,mess)
 		await asyncio.sleep(1)
 		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,progress_args=(
-                    "<b>Uploading :- </b> `{file_name}`", message, time.time()
+                    "<b>Uploading :- </b> `{data}`", mess, time.time()
                 ))
 		await asyncio.sleep(1)
 		os.remove(data)
