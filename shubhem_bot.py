@@ -67,10 +67,12 @@ async def job2g_partener4(client:Client,message:Message):
 	yy=reaaa.split("\n",message.text)
 	await client.send_message(message.chat.id,"Downloading is progressing...")
 	for x in yy:
-		
+		file_name=x
 		data,thumb=box(x)
 		await asyncio.sleep(1)
-		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,)
+		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,progress_args=(
+                    "<b>Uploading :- </b> `{file_name}`", message, time.time()
+                ))
 		await asyncio.sleep(1)
 		os.remove(data)
 		
