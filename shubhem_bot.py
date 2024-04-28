@@ -40,8 +40,8 @@ shubham=Client("shubhem new",session_string=os.environ['shubhem'],api_id="136826
 mohit=Client("mohit",session_string=os.environ['mohit'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 monu=Client("monu",session_string=os.environ['monu'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 sonu=Client("sonu kumar",session_string="BQDQx-MAu5H0aHV_jebewJzC_jqu4v4ZhB94iPIs9JLLkkjHSPrEbC8AGTX-IzOFI7ijQ1mdmwNpXZFL5fANFSBy2M5r6zUJltR-xJsQicsIeQZ0QjCUeFA6o64KIENGE0j_K6UssGwh7j-G9uHcPPN1dthewNzdDLcRvITu9Gcx1EsUjvQth_TZz5AxudPX6fnAOolKIa3BIEJKAUFHbpfyCp8Xq_HjdcFilHwy4KSd0I_xc_uE1UxYBfO3EPaT-GPbfseGdI_FpPYrTAusD_HMToTkVy0b41Hw5QI6FAYr8_7AqcMY-SzH6wJufhHKjUOOvwAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
-robo = Client("ROBOT",
-#bot_token="6200186150:AAFq1E9S9CgV-l",
+Soojh = Client("SoojhT",
+bot_token=session_string=os.environ['Soojh'],
 api_id="13682659",
 api_hash="b984d240c5258407ea911f042c9d75f6")
 headersList = {
@@ -199,26 +199,26 @@ async def job2g_partener2(client:Client,message:Message):
 
 
 def profile_photo_soojh():
-	robo.send_message("BotFather","/setuserpic")
-	robo.send_message("BotFather","@soojhboojh_bot")
+	Soojh.send_message("BotFather","/setuserpic")
+	Soojh.send_message("BotFather","@soojhboojh_bot")
 	ids=[]
-	for x in robo.search_messages(random.choice(Profile_photo_soojh),filter=enums.MessagesFilter.PHOTO):
+	for x in Soojh.search_messages(random.choice(Profile_photo_soojh),filter=enums.MessagesFilter.PHOTO):
 		ids.append({str(x.chat.id):x.id})
 	choice=(random.choice(ids))
 	caption=""
 	try:
-		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]+1))
+		photo=(Soojh.get_messages(list(choice.keys())[0],list(choice.values())[0]+1))
 		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)
-		photo=robo.download_media(photo.document.file_id,file_name=photo.document.file_name)
+		photo=Soojh.download_media(photo.document.file_id,file_name=photo.document.file_name)
 		#print(photo)
-		robo.send_photo("BotFather",photo,caption=caption )
+		Soojh.send_photo("BotFather",photo,caption=caption )
 	except Exception as e:
-		#robo.send_message("kinbin246",str(e)+"\n\n"+caption,disable_web_page_preview=True)
-		photo=(robo.get_messages(list(choice.keys())[0],list(choice.values())[0]))
+		#Soojh.send_message("kinbin246",str(e)+"\n\n"+caption,disable_web_page_preview=True)
+		photo=(Soojh.get_messages(list(choice.keys())[0],list(choice.values())[0]))
 		caption="https://t.me/c/"+reaaa.sub("-100","",str(photo.chat.id))+"/"+str(photo.id)
-		photo=robo.download_media(photo.photo.file_id,file_name=photo.photo.file_name)
+		photo=Soojh.download_media(photo.photo.file_id,file_name=photo.photo.file_name)
 		#print(photo)
-		robo.send_photo("BotFather",photo,caption=caption )
+		Soojh.send_photo("BotFather",photo,caption=caption )
 	os.remove(photo)
 #scheduler.add_job(profile_photo_soojh,"interval", minutes=1,id="minutes")
 #print(scheduler.add_job(all_restart_hibernation, 'cron', hour=7,minute=50,args=("x",)))
@@ -262,8 +262,8 @@ def main():
 	
 	@st.cache_resource
 	def init_connection2():
-		return robo.start()
-	#_=init_connection2()
+		return Soojh.start()
+	_=init_connection2()
 	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
@@ -273,11 +273,11 @@ def main():
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
 	monu.send_message("Kinbin246","monu Bot stoped")
 	#sonu.send_message("Kinbin246","sonu Bot stoped")
-	#robo.send_message("Kinbin246","sonu Bot stoped")
+	#Soojh.send_message("Kinbin246","sonu Bot stoped")
 	shubham.stop()
 	monu.stop()
 	#sonu.stop()
-	#robo.stop()
+	#Soojh.stop()
 
 if __name__ == '__main__':
     main()#
