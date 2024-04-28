@@ -3,7 +3,7 @@ from tqdm import tqdm
 from pprint import pprint as p
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
-from helpers.prog_bar import progress_for_pyrogram
+from prog_bar import progress_for_pyrogram
 async def box(video,message):
 	
 	
