@@ -72,7 +72,7 @@ async def job2g_partener4(client:Client,message:Message):
 		data,thumb=await box(x,mess)
 		await asyncio.sleep(1)
 		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,progress_args=(
-                    "<b>Uploading :- </b> `{data}`", mess, time.time()
+                    "<b>Uploading :- </b> "+data, mess, time.time()
                 ))
 		await asyncio.sleep(1)
 		os.remove(data)
