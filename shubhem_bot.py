@@ -67,7 +67,7 @@ headersList = {
 	    }
 @Soojh.on_message(filters.regex("app\.com") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & filters.incoming & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
-	yy=extractor.find_urls(message.text)
+	yy=extractor.find_urls(reaaa.sub("\n", " ",message.text))
 	for x in message.entities:
 		if str(x.type)=="URL":
 			yy.append()
@@ -78,7 +78,7 @@ async def job2g_partener4(client:Client,message:Message):
 	yy=zz
 			
 		
-	
+	await client.send_message(message.chat.id,str(yy))
 	for x in yy:
 		mess=await client.send_message(message.chat.id,"Downloading is progressing...")
 		try:
