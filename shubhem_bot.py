@@ -34,6 +34,9 @@ def id_generator(size=10, chars=string.ascii_lowercase):
 	return ''.join(random.choice(chars) for _ in range(size))
 import time,datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from urlextract import URLExtract
+extractor = URLExtract()
+
 scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
 scheduler.start()
 shubham=Client("shubhem new",session_string=os.environ['shubhem'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
