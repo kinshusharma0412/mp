@@ -71,6 +71,11 @@ async def job2g_partener4(client:Client,message:Message):
 	for x in message.entities:
 		if str(x.type)=="URL":
 			yy.append()
+	zz=[]
+	for y in yy:
+		if y not in zz:
+			zz.append(y)
+	yy=zz
 			
 		
 	
