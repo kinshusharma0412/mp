@@ -62,20 +62,28 @@ headersList = {
 	        "sec-ch-ua-mobile": "?0",
 	        "sec-ch-ua-platform": '"Windows"',
 	    }
-@Soojh.on_message(filters.regex("^https\://.*app\.com.*?") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
+@Soojh.on_message(filters.regex("(https\://.*app\.com|terabox|Terabox)") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
-	yy=reaaa.split("\n",message.text)
+	yy=extractor.find_urls(message.text)
+	for x in message.entities:
+		if str(x.type)=="URL":
+			yy.append()
+			
+		
 	
 	for x in yy:
 		mess=await client.send_message(message.chat.id,"Downloading is progressing...")
-		file_name=x
-		data,thumb=await box(x,mess)
-		await asyncio.sleep(1)
-		await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,progress_args=(
-                    "<b>Uploading :- </b> "+data, mess, time.time()
-                ))
-		await asyncio.sleep(1)
-		os.remove(data)
+		try:
+			file_name=x
+			data,thumb=await box(x,mess)
+			await asyncio.sleep(1)
+			await client.send_video(message.chat.id,data,thumb=thumb,progress=progress_for_pyrogram,progress_args=(
+	                    "<b>Uploading :- </b> "+data, mess, time.time()
+	                ))
+			await asyncio.sleep(1)
+			os.remove(data)
+		except:
+			await mess.edit("Error link "+x+"\n\nTerabox not support this link")
 		
 			
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
