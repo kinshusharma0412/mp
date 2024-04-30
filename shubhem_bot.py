@@ -62,7 +62,7 @@ headersList = {
 	        "sec-ch-ua-mobile": "?0",
 	        "sec-ch-ua-platform": '"Windows"',
 	    }
-@Soojh.on_message(filters.regex("(https\://.*app\.com|terabox|Terabox)") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
+@Soojh.on_message(filters.regex("(https\://.*app\.com|terabox|Terabox|box\.com)") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=extractor.find_urls(message.text)
 	for x in message.entities:
@@ -83,7 +83,7 @@ async def job2g_partener4(client:Client,message:Message):
 			await asyncio.sleep(1)
 			os.remove(data)
 		except:
-			await mess.edit("Error link "+x+"\n\nTerabox not support this link")
+			await mess.edit("Error link: "+x+"\n\nTerabox not support this link")
 		
 			
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
@@ -99,14 +99,15 @@ async def job2g_partener2(client:Client,message:Message):
 		yy=reaaa.split("\n",links[:-1])
 		for x in yy:
 			mid=None
+			
+			zz=reaaa.sub("^(https://t.me/|Me/)","",x)
+			xx=reaaa.sub("c/","-100",zz)
+			xx=reaaa.split("/",xx)
 			try:
-				zz=reaaa.sub("^(https://t.me/|Me/)","",x)
-				xx=reaaa.sub("c/","-100",zz)
-				xx=reaaa.split("/",xx)
-				try:
-					y=await client.get_messages(int(xx[0]),int(xx[1]))
-				except:
-					y=await client.get_messages(xx[0],int(xx[1]))
+				y=await client.get_messages(int(xx[0]),int(xx[1]))
+			except:
+				y=await client.get_messages(xx[0],int(xx[1]))
+			try:
 				
 				mid=(await client.send_message(message.chat.id,str(str(xx[1])+"). downloading is progressing..."))).id
 				async def progress(current, total,message,client,mid,zzz):
@@ -129,7 +130,7 @@ async def job2g_partener2(client:Client,message:Message):
 				os.remove(z)
 		#
 			except Exception as e:
-				await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
+				await client.edit_message_text(message.chat.id, mid,text=y.text,entities=y.entities)
 		await asyncio.sleep(1)
 	
 #@monu.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
