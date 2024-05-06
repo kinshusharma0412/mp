@@ -4,11 +4,12 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler(timezone="Asia/kolkata")
 
 
+
 headers = {
-  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
+  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
   'Accept': "application/json, text/plain, */*",
   'Accept-Encoding': "gzip, deflate, br, zstd",
-  'sec-ch-ua': "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
+  'sec-ch-ua': "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"",
   'x-csrf-token': os.environ["xcsrftoken"],
   'sec-ch-ua-mobile': "?1",
   'sec-ch-ua-platform': "\"Android\"",
@@ -17,7 +18,8 @@ headers = {
   'sec-fetch-mode': "cors",
   'sec-fetch-dest': "empty",
   'referer': "https://share.streamlit.io/",
-  'accept-language': "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,hi;q=0.6",
+  'accept-language': "en-IN,en;q=0.9,en-US;q=0.8,hi;q=0.7",
+  'priority': "u=1, i",
   'Cookie': os.environ["cookies_header"]
 }
 def all_restart_hibernation(x):
