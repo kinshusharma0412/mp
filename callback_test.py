@@ -95,8 +95,8 @@ def hibernation(x):
 
 print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=30,args=("x",)))
 def main():
-	scheduler.start()
-	def soojh_flood_wait_start(e,f):
+    scheduler.start()
+    def soojh_flood_wait_start(e,f):
     	@st.cache_resource
     	def init_connection1():
     		return app_bot.start()
