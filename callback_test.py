@@ -1,6 +1,6 @@
 import json,requests,time,random,re
 from pprint import pprint as p
-import html
+import html,os
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from pyrogram import Client, enums
