@@ -1,6 +1,7 @@
 import json,requests,time,random,re
 from pprint import pprint as p
 import html,os
+from pyrogram.errors import FloodWait
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from pyrogram import Client, enums
