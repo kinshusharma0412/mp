@@ -29,6 +29,11 @@ app_bot=Client("classplus_test",bot_token=os.environ["Soojh"],api_id=os.environ[
 async def answer(client, callback_query):
     if callback_query.data.startswith("Testbook_"):
 	    #print(str((await client.get_chat_member(-1001517843177,callback_query.from_user.id)).status)[15:])
+	
+	    try:
+	        (await client.get_chat_member(-1001517843177,callback_query.from_user.id)).status
+	    except:
+	        await callback_query.answer("First join @POLLS_QUIZ channal than click explanation button\n\nपहले @POLLS_QUIZ चैनल ज्वाइन कीजिए फिर explanation बटन दबाइए।",show_alert=True)
 	    if str((await client.get_chat_member(-1001517843177,callback_query.from_user.id)).status)[17:] in ["OWNER" , "ADMINISTRATOR" , "MEMBER"]:
 	    	try:
 	    		await client.answer_callback_query(callback_query_id=callback_query.id,url="t.me/SOOJHBOOJH_BOT?start=TB"+re.sub("Testbook_","",callback_query.data))
