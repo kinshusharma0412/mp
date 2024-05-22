@@ -73,10 +73,18 @@ headers = {
   'Cookie': os.environ["xcsrftoken"]
 }
 
+
+
+
+
 headersai = {
   'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
-  'Cookie': "_ga=GA1.1.463148501.1716353430; usprivacy=1Y--; _ga_YJWJRNESS5=GS1.1.1716363109.3.1.1716367327.60.0.0"
+  'Cookie': "usprivacy=1Y--; _ga=GA1.1.126541330.1716373648; _ga_YJWJRNESS5=GS1.1.1716373647.1.0.1716373647.60.0.0"
 }
+
+
+
+
 async def gen(x ,y,m):
 	
 	url2 = os.environ["url2"]
