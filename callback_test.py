@@ -80,7 +80,7 @@ async def gen(x ,y,m):
 	  'thread': "4",
 	  '__cacheBust': "0.790762795782767"
 	}
-	res = requests.get(url, params=params, )#headers=headers)
+	res = requests.get(url2, params=params, )#headers=headers)
 
 	url1 = os.environ["url1"]
 	
