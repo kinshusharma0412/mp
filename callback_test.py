@@ -141,7 +141,7 @@ def hibernation(x):
 
 #print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=30,args=("x",)))
 os.system("playwright install")
-os.system("sudo playwright install-deps")
+#os.system("sudo playwright install-deps")
 @app_bot.on_message(filters.regex("^/text_to_image") & filters.incoming)
 async def text_to_image(client:Client,message:Message):
 	query=re.split("\n",message.text)
@@ -152,7 +152,10 @@ async def text_to_image(client:Client,message:Message):
 		sucess=True
 	if sucess:
 		await gen("\n".join(query[1:]) ,message)
-		await message.reply_text(str(os.system('/home/adminuser/venv/bin/python  main.py -f newimage -n 10 -p "A Japanese school girl walks at night, in Tokyo street, rainy, neon lights"'))[:4000])
+		await message.reply_text(str(os.system('/home/adminuser/venv/bin/python  main.py -f newimage -n 3 -p "'+"\n".join(query[1:])+'"'))[:4000])
+		for zz in range(3):
+			await m.reply_photo(f"generated-pictures/newimage{zz+1}.jpeg", caption="created by @SoojhBoojh_Bot")
+		
 		
 
 def main():
