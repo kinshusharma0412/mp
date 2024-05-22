@@ -92,8 +92,7 @@ def gen(x ,y,m):
 	}
 	if True:
 		response = requests.post(url1, params=params1)
-		if m.chat.id==6779478298:
-			m.reply_text(str(response.json()))
+		m.reply_text(str(response.json()))
 		url = os.environ["url"]
 		params = {
 		  'imageId': response.json()["imageId"]
