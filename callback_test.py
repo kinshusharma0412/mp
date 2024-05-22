@@ -77,60 +77,39 @@ headers = {
 
 
 
-headersai = {
-  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
-  'Cookie': "usprivacy=1Y--; _ga=GA1.1.126541330.1716373648; _ga_YJWJRNESS5=GS1.1.1716373647.1.0.1716373647.60.0.0"
-}
-
-
-key=["b4dc174b87fcf3eb677eaa767d4f470bbc06268d48c903d0a7032511d9ab0cb3",
-"8a81e03bdd68c126cbe7a3f3277581d9a35eb1f8aad34d759f747024392f6edb",
-"940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
-"d3089aa7d155758c8712508d96dd412af1032d482e4f2dd047dc45beb4bb1904",
-"46f8e7c5886983b27c08c6ae0ed92e3b9dd1e454900cac51188f5a5ca76a6b47",
-"014533fe515e16298fc4660c8a09126eedfdac3ec63d0570ff31fbef5be11795"]
-
-async def gen(x ,y,m):
-	key_num=random.randint(0,5)
-	url2 = os.environ["url2"]
-	params = {
-	  'thread': str(key_num),
-	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
-	}
-	res = requests.get(url2, params=params, headers=headersai)
-	try:
-		userKey=res.json()["userKey"]
-	except:
-		userKey=key[key_num]
-	await m.reply_text(str(res.json()))
-	url1 = os.environ["url1"]
+async def gen(y,m):
+	payload = json.dumps({
+	  "prompt": y
+	})
 	
-	params1 = {
-	  'prompt': x,
-	  'seed': "-1",
-	  'resolution': y,
-	  'guidanceScale': "7",
-	  'negativePrompt': "",
-	  'channel': os.environ["channel"],
-	  'subChannel': "public",
-	  'userKey': userKey,
-	  'adAccessCode': "",
-	  'requestId': "0.7627234888992518",
-	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
+	headers = {
+	  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+	  'Content-Type': "application/json"
 	}
-	if True:
-		response = requests.post(url1, params=params1, headers=headersai)
-		await m.reply_text(str(response.json()))
-		url3 = os.environ["url3"]
-		params = {
-		  'imageId': response.json()["imageId"]
-		}
-		response = requests.get(url3, params=params, headers=headersai)
+	
+	response = requests.post(os.environ["url1"], data=payload, headers=headers)
+	
+	
+	
+	
+	url2 = os.environ["url2"]+response.json()["uuid"]
+	print(response.json())
+	headers = {
+	  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+	}
+	
+	response = requests.get(url2, headers=headers)
+	
+	while len(response.json()["images"])==0:
+		response = requests.get(url, headers=headers)
 		
-		f= open(f"polls_quiz.jpg","wb")
+	for i,x in enumerate(response.json()["images"]):
+		response = requests.get(os.environ["url3"]+x)
+		f= open(f"polls_quiz_y {i+1}.jpg","wb")
 		f.write(response.content)
 		f.close
-		return f"polls_quiz.jpg"
+		await message.reply_photo(f"polls_quiz_y {i+1}.jpg")
+		await asyncio.sleep(5)
 
 def all_restart_hibernation(x):
 	url = "https://share.streamlit.io/api/v1/apps"
@@ -168,17 +147,10 @@ async def text_to_image(client:Client,message:Message):
 	sucess=False
 	if len(query)==1:
 		await message.reply_text("invalid command")
-	elif len(query)==2:
-		sucess=True
-		query.append("3")
-	elif len(query)==3:
-		sucess=True
 	else:
-		await message.reply_text("invalid command\n\nreason = more then 3 line is provide. Syntex= /text_to_image\nquery\nNumber of images")
-		sucess=False
+		sucess=True
 	if sucess:
-		for x in range(int(query[2])):
-			await message.reply_photo(await gen(query[1] ,"512x768",message))
+		await gen("\n".joint(query[1:]) ,message)
 
 def main():
     scheduler.start()
