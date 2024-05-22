@@ -82,6 +82,7 @@ async def gen(x ,y,m):
 	  '__cacheBust': "0.061387041406656184"
 	}
 	res2 = requests.get(url4, params=params11)
+	await m.reply_text(str(res2.json()))
 	
 
 	
@@ -91,7 +92,7 @@ async def gen(x ,y,m):
 	  '__cacheBust': params11["__cacheBust"]
 	}
 	res = requests.get(url2, params=params, )#headers=headers)
-
+	await m.reply_text(str(res.json()))
 	url1 = os.environ["url1"]
 	
 	params1 = {
