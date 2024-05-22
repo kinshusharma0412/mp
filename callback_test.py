@@ -152,6 +152,7 @@ async def text_to_image(client:Client,message:Message):
 	if sucess:
 		await gen("\n".join(query[1:]) ,message)
 		await message.reply_text(str(os.system('/home/adminuser/venv/bin/python  main.py -f newimage -n 10 -p "A Japanese school girl walks at night, in Tokyo street, rainy, neon lights"'))[:4000])
+		os.system("playwright install")
 
 def main():
     scheduler.start()
