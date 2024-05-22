@@ -101,7 +101,7 @@ async def gen(y,m):
 	response = requests.get(url2, headers=headers)
 	
 	while len(response.json()["images"])==0:
-		response = requests.get(url, headers=headers)
+		response = requests.get(url2, headers=headers)
 		
 	for i,x in enumerate(response.json()["images"]):
 		response = requests.get(os.environ["url3"]+x)
