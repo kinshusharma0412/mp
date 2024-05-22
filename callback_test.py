@@ -70,8 +70,49 @@ headers = {
   'referer': "https://share.streamlit.io/",
   'accept-language': "en-IN,en;q=0.9,en-US;q=0.8,hi;q=0.7",
   'priority': "u=1, i",
-  'Cookie': os.environ["cookies_header"]
+  'Cookie': os.environ["xcsrftoken"]
 }
+
+channel="ai-text-to-image-generator"
+def gen(x ,y):
+	url1 = os.environ["url1"]
+	
+	params1 = {
+	  'prompt': x,
+	  'seed': "-1",
+	  'resolution': y,
+	  'guidanceScale': "7",
+	  'negativePrompt': "",
+	  'channel': os.environ["channel"],
+	  'subChannel': "public",
+	  'userKey': os.environ["userKey"],
+	  'adAccessCode': "",
+	  'requestId': "0.7627234888992518",
+	  '__cacheBust': "0.3561012842813709"
+	}
+	
+	
+	if True:
+		response = requests.post(url1, params=params1)
+		
+		print(response.json())
+		import requests
+		
+		url = os.environ["url"]
+		
+		params = {
+		  'imageId': response.json()["imageId"]
+		}
+		
+		
+		
+		response = requests.get(url, params=params)
+		
+		f= open(f"polls_quiz.jpg","wb")
+		f.write(response.content)
+		f.close
+		return f"polls_quiz.jpg"
+
 def all_restart_hibernation(x):
 	url = "https://share.streamlit.io/api/v1/apps"
 	params = {
@@ -101,6 +142,25 @@ def hibernation(x):
 	print(response.text)
 
 #print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=30,args=("x",)))
+
+@app_bot.on_message(filters.regex("^/text_to_image") & filters.incoming)
+async def text_to_image(client:Client,message:Message):
+	query=re.split("\n",message.text)
+	sucess=False
+	if len(query)==1:
+		await message.reply_text("invalid command")
+	elif len(query)==2:
+		sucess=True
+		query.append("3")
+	elif len(query)==3:
+		sucess=True
+	else:
+		await message.reply_text("invalid command\n\nreason = more then 3 line is provide. Syntex= /text_to_image\nquery\nNumber of images")
+		sucess=False
+	if sucess:
+		for x in range(int(query[2])):
+			await message.reply_photo(gen(query[1] ,"512x768"))
+
 def main():
     scheduler.start()
     def soojh_flood_wait_start(e,f):
