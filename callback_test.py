@@ -81,7 +81,7 @@ async def gen(x ,y,m):
 	  'userKey': "940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
 	  '__cacheBust': "0.061387041406656184"
 	}
-	res2 = requests.get(url4, params=params)
+	res2 = requests.get(url4, params=params11)
 	
 
 	
