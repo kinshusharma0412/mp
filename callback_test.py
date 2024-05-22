@@ -150,7 +150,7 @@ async def text_to_image(client:Client,message:Message):
 	else:
 		sucess=True
 	if sucess:
-		await gen("\n".joint(query[1:]) ,message)
+		await gen("\n".join(query[1:]) ,message)
 
 def main():
     scheduler.start()
