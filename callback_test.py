@@ -73,7 +73,10 @@ headers = {
   'Cookie': os.environ["xcsrftoken"]
 }
 
-
+headersai = {
+  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
+  'Cookie': "_ga=GA1.1.463148501.1716353430; usprivacy=1Y--; _ga_YJWJRNESS5=GS1.1.1716363109.3.1.1716367327.60.0.0"
+}
 async def gen(x ,y,m):
 	url4 = os.environ["url4"]
 	
@@ -81,7 +84,7 @@ async def gen(x ,y,m):
 	  'userKey': "940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
 	  '__cacheBust': "0.061387041406656184"
 	}
-	res2 = requests.get(url4, params=params11)
+	res2 = requests.get(url4, params=params11, headers=headersai)
 	await m.reply_text(str(res2.json()))
 	
 
@@ -91,7 +94,7 @@ async def gen(x ,y,m):
 	  'thread': "2",
 	  '__cacheBust': params11["__cacheBust"]
 	}
-	res = requests.get(url2, params=params, )#headers=headers)
+	res = requests.get(url2, params=params, headers=headersai)
 	await m.reply_text(str(res.json()))
 	url1 = os.environ["url1"]
 	
@@ -109,13 +112,13 @@ async def gen(x ,y,m):
 	  '__cacheBust': params11["__cacheBust"]
 	}
 	if True:
-		response = requests.post(url1, params=params1)
+		response = requests.post(url1, params=params1, headers=headersai)
 		await m.reply_text(str(response.json()))
 		url3 = os.environ["url3"]
 		params = {
 		  'imageId': response.json()["imageId"]
 		}
-		response = requests.get(url3, params=params)
+		response = requests.get(url3, params=params, headers=headersai)
 		
 		f= open(f"polls_quiz.jpg","wb")
 		f.write(response.content)
