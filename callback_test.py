@@ -108,7 +108,7 @@ async def gen(y,m):
 		f= open(f"polls_quiz_y {i+1}.jpg","wb")
 		f.write(response.content)
 		f.close
-		await message.reply_photo(f"polls_quiz_y {i+1}.jpg")
+		await message.reply_photo(f"polls_quiz_y {i+1}.jpg", caption="created by @SoojhBoojh_Bot")
 		await asyncio.sleep(5)
 
 def all_restart_hibernation(x):
