@@ -74,7 +74,7 @@ headers = {
 }
 
 
-def gen(x ,y,m):
+async def gen(x ,y,m):
 	url1 = os.environ["url1"]
 	
 	params1 = {
@@ -92,7 +92,7 @@ def gen(x ,y,m):
 	}
 	if True:
 		response = requests.post(url1, params=params1)
-		m.reply_text(str(response.json()))
+		await m.reply_text(str(response.json()))
 		url = os.environ["url"]
 		params = {
 		  'imageId': response.json()["imageId"]
@@ -153,7 +153,7 @@ async def text_to_image(client:Client,message:Message):
 		sucess=False
 	if sucess:
 		for x in range(int(query[2])):
-			await message.reply_photo(gen(query[1] ,"512x768",message))
+			await message.reply_photo(await gen(query[1] ,"512x768",message))
 
 def main():
     scheduler.start()
