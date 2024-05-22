@@ -75,6 +75,13 @@ headers = {
 
 
 async def gen(x ,y,m):
+	url2 = os.environ["url2"]
+	params = {
+	  'thread': "4",
+	  '__cacheBust': "0.790762795782767"
+	}
+	res = requests.get(url, params=params, )#headers=headers)
+
 	url1 = os.environ["url1"]
 	
 	params1 = {
@@ -85,7 +92,7 @@ async def gen(x ,y,m):
 	  'negativePrompt': "",
 	  'channel': os.environ["channel"],
 	  'subChannel': "public",
-	  'userKey': os.environ["userKey"],
+	  'userKey': res.json()["userKey"],
 	  'adAccessCode': "",
 	  'requestId': "0.7627234888992518",
 	  '__cacheBust': "0.3561012842813709"
