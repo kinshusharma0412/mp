@@ -73,7 +73,7 @@ headers = {
   'Cookie': os.environ["xcsrftoken"]
 }
 
-channel="ai-text-to-image-generator"
+
 def gen(x ,y):
 	url1 = os.environ["url1"]
 	
@@ -90,16 +90,10 @@ def gen(x ,y):
 	  'requestId': "0.7627234888992518",
 	  '__cacheBust': "0.3561012842813709"
 	}
-	
-	
 	if True:
 		response = requests.post(url1, params=params1)
-		
 		print(response.json())
-		import requests
-		
 		url = os.environ["url"]
-		
 		params = {
 		  'imageId': response.json()["imageId"]
 		}
