@@ -78,21 +78,11 @@ headersai = {
   'Cookie': "_ga=GA1.1.463148501.1716353430; usprivacy=1Y--; _ga_YJWJRNESS5=GS1.1.1716363109.3.1.1716367327.60.0.0"
 }
 async def gen(x ,y,m):
-	url4 = os.environ["url4"]
-	
-	params11 = {
-	  'userKey': "940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
-	  '__cacheBust': "0.061387041406656184"
-	}
-	res2 = requests.get(url4, params=params11, headers=headersai)
-	await m.reply_text(str(res2.json()))
-	
-
 	
 	url2 = os.environ["url2"]
 	params = {
-	  'thread': "2",
-	  '__cacheBust': params11["__cacheBust"]
+	  'thread': str(random.randint(0,5)),
+	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
 	}
 	res = requests.get(url2, params=params, headers=headersai)
 	await m.reply_text(str(res.json()))
@@ -109,7 +99,7 @@ async def gen(x ,y,m):
 	  'userKey': res.json()["userKey"],
 	  'adAccessCode': "",
 	  'requestId': "0.7627234888992518",
-	  '__cacheBust': params11["__cacheBust"]
+	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
 	}
 	if True:
 		response = requests.post(url1, params=params1, headers=headersai)
