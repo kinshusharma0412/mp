@@ -83,16 +83,25 @@ headersai = {
 }
 
 
-
+key=["b4dc174b87fcf3eb677eaa767d4f470bbc06268d48c903d0a7032511d9ab0cb3",
+"8a81e03bdd68c126cbe7a3f3277581d9a35eb1f8aad34d759f747024392f6edb",
+"940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
+"d3089aa7d155758c8712508d96dd412af1032d482e4f2dd047dc45beb4bb1904",
+"46f8e7c5886983b27c08c6ae0ed92e3b9dd1e454900cac51188f5a5ca76a6b47",
+"014533fe515e16298fc4660c8a09126eedfdac3ec63d0570ff31fbef5be11795"]
 
 async def gen(x ,y,m):
-	
+	key_num=random.randint(0,5)
 	url2 = os.environ["url2"]
 	params = {
-	  'thread': str(random.randint(0,5)),
+	  'thread': str(key_num),
 	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
 	}
 	res = requests.get(url2, params=params, headers=headersai)
+	try:
+		userKey=res.json()["userKey"]
+	except:
+		userKey=key[key_num]
 	await m.reply_text(str(res.json()))
 	url1 = os.environ["url1"]
 	
@@ -104,7 +113,7 @@ async def gen(x ,y,m):
 	  'negativePrompt': "",
 	  'channel': os.environ["channel"],
 	  'subChannel': "public",
-	  'userKey': res.json()["userKey"],
+	  'userKey': userKey,
 	  'adAccessCode': "",
 	  'requestId': "0.7627234888992518",
 	  '__cacheBust': str(random.randint(100000000000000000,9999999999999999999)/10000000000000000000)
