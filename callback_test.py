@@ -75,10 +75,20 @@ headers = {
 
 
 async def gen(x ,y,m):
+	url4 = os.environ["url4"]
+	
+	params11 = {
+	  'userKey': "940973e878b455f3c8cd4fa1ddf358f39eac1e8a9ec4c52901eff864b2039c2d",
+	  '__cacheBust': "0.061387041406656184"
+	}
+	res2 = requests.get(url4, params=params)
+	
+
+	
 	url2 = os.environ["url2"]
 	params = {
-	  'thread': "4",
-	  '__cacheBust': "0.790762795782767"
+	  'thread': "2",
+	  '__cacheBust': params11["__cacheBust"]
 	}
 	res = requests.get(url2, params=params, )#headers=headers)
 
@@ -95,19 +105,16 @@ async def gen(x ,y,m):
 	  'userKey': res.json()["userKey"],
 	  'adAccessCode': "",
 	  'requestId': "0.7627234888992518",
-	  '__cacheBust': "0.3561012842813709"
+	  '__cacheBust': params11["__cacheBust"]
 	}
 	if True:
 		response = requests.post(url1, params=params1)
 		await m.reply_text(str(response.json()))
-		url = os.environ["url"]
+		url3 = os.environ["url3"]
 		params = {
 		  'imageId': response.json()["imageId"]
 		}
-		
-		
-		
-		response = requests.get(url, params=params)
+		response = requests.get(url3, params=params)
 		
 		f= open(f"polls_quiz.jpg","wb")
 		f.write(response.content)
