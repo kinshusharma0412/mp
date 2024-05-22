@@ -152,9 +152,10 @@ async def text_to_image(client:Client,message:Message):
 		sucess=True
 	if sucess:
 		await gen("\n".join(query[1:]) ,message)
-		await message.reply_text(str(os.system('/home/adminuser/venv/bin/python  main.py -f newimage -n 3 -p "'+"\n".join(query[1:])+'"'))[:4000])
+		await message.reply_text(str(os.system(f'/home/adminuser/venv/bin/python  main.py -f newimage{message.chat.id} -n 3 -p "'+"\n".join(query[1:])+'"'))[:4000])
 		for zz in range(3):
-			await message.reply_photo(f"generated-pictures/newimage{zz+1}.jpeg", caption="created by @SoojhBoojh_Bot")
+			await message.reply_photo(f"generated-pictures/newimage{message.chat.id}{zz+1}.jpeg", caption="created by @SoojhBoojh_Bot")
+			os.remove(f"generated-pictures/newimage{message.chat.id}{zz+1}.jpeg")
 		
 		
 
