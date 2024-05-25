@@ -263,6 +263,50 @@ async def new_find_station_code(x):
 			details+="Station Code: `"+y["station_code"]+"`\nStation Name: "+y["station_name"]+"\nCity: "+y["city_name"]+", "+y["state_name"]+"\n\n"
 	
 	return details
+def sortDates(datesList):
+	split_up = datesList["from_sta"].split(':')
+	return int(split_up[0]), int(split_up[1])
+	
+async def new_trains_between_stations(a,b,c=None):
+	if c is None:
+		c=datetime.datetime.now().strftime("%d-%m-%y")
+		url = "https://api.railyatri.in/api/trains-between-station-from-wrapper.json"
+	
+	params = {
+	  'from': a,
+	  'to': b,
+	  'dateOfJourney': c,
+	  'device_type_id': "4",
+	  'from_code': a,
+	  'from_name': a,
+	  'journey_quota': "GN",
+	  'to_code':b,
+	  'to_name': b
+	}
+	
+	headers = {
+	  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+	}
+	
+	response = requests.get(url, params=params, headers=headers)
+	
+	if response.json()["status"]==200:
+		data=response.json()["train_between_stations"]+response.json()["reserved_trains"]+response.json()["alternate_trains"]
+		data.sort(key=sortDates)
+		details=""
+		
+		for x in data:
+			if datetime.datetime.strptime(x["from_sta"],"%H:%M")<datetime.datetime.strptime(datetime.datetime.now().strftime("%H:%M"),"%H:%M") :
+				details+="🅿🅰🆂🆃 Train Name: "+x["train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
+			else:
+				details+="🇫🇺🇹🇺🇷🇪 Train Name: "+x["extended_train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
+			if len(x["journey_class"])>0:
+				details+="\nJourney_Cass: "+", ".join(x["journey_class"])
+			details+="\n\n"
+		return details
+		datetime.datetime.strptime( t_str, "%H:%M").strftime('%I:%M %p')
+	else:
+		return "some error comes please send station_code and date (if date is not provided than i will search for today train) like this Example 👇👇👇\n\n /train_btw_station AWR JP "+datetime.datetime.now().strftime("%d-%m-%y")
 #print((A))
 #print((B))
 #print((C))

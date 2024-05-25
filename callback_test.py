@@ -48,6 +48,21 @@ async def job2_partener2_1(client:Client,message:Message):
 		if message.chat.id<0:
 			await asyncio.sleep(5)
 	await asyncio.sleep(5)
+@app_bot.on_message(filters.regex("^/train_btw_station ") & ~ filters.scheduled )#& filters.incoming)
+async def job2_partener2_2(client:Client,message:Message):
+	q=re.split(" {1,}",re.sub("/train_btw_station( |\n)","",message.text))
+	a=q[0]
+	b=q[1]
+	if len(q)>2:
+		c=q[2]
+	else:
+		c=None
+	A=await new_trains_between_stations(a,b,c)
+	for x in spliter(A):
+		await app_bot.send_message(message.chat.id, str(x))
+		if message.chat.id<0:
+			await asyncio.sleep(5)
+	await asyncio.sleep(5)
 @app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_3(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, "Bot is Alive! finding your train details...\nDon't forget to join channel @Polls_Quiz")
