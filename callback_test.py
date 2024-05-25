@@ -69,7 +69,7 @@ async def job2_partener2_2(client:Client,message:Message):
 @app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_3(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, "Bot is Alive! finding your train details...\nDon't forget to join channel @Polls_Quiz")
-	q=re.split(" {1,}",re.sub("/train_btw_station( |\n)","",message.text))
+	q=re.split(" {1,}",re.sub("/live_train_status( |\n)","",message.text))
 	a=q[0]
 	if len(q)>1:
 		b=str(int(q[1])*(-1))
