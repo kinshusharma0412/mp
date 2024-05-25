@@ -272,7 +272,7 @@ def sortDates(datesList):
 async def new_trains_between_stations(a,b,c=None):
 	if c is None:
 		c=datetime.datetime.now().strftime("%d-%m-%y")
-		url = os.environ["between_sta"]  
+	url = os.environ["between_sta"]  
 	
 	params = {
 	  'from': a,
