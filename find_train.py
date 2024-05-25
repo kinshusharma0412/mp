@@ -214,8 +214,8 @@ def live_train_details(y):
 def spliter(a):
 	jointer=""
 	if type(a)==type(""):
-		b=re.split(jointer,a)
 		jointer="\n\n"
+		b=re.split(jointer,a)
 	if type(a)==type([]):
 		b=a
 		jointer="\n"
