@@ -34,7 +34,7 @@ async def job2_partener2_1(client:Client,message:Message):
 	trains_between_stations(re.sub("/live_train_status( |\n)","",message.text))
 @app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_2(client:Client,message:Message):
-	A,B,C=live_train_details(re.sub("/live_train_status( |\n)","",message.text))
+	A,B,C,D=live_train_details(re.sub("/live_train_status( |\n)","",message.text))
 	for x in spliter(A):
 		await app_bot.send_message(message.chat.id, str(x))
 		if message.chat.id<0:
@@ -47,7 +47,10 @@ async def job2_partener2_2(client:Client,message:Message):
 		await app_bot.send_message(message.chat.id, str(x))
 		if message.chat.id<0:
 			await asyncio.sleep(5)
-		
+	for x in spliter(D):
+		await app_bot.send_message(message.chat.id, str(x))
+		if message.chat.id<0:
+			await asyncio.sleep(5)
 	
 @app_bot.on_callback_query()
 async def answer(client, callback_query):

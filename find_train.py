@@ -1,9 +1,27 @@
 import requests,html,re
 from bs4 import BeautifulSoup as so
-import datetime,os
+import datetime,os,json
 def s(te):
 	return so(te,"html.parser")
-
+def translate_en(x):
+	url=os.environ["translate"]
+	try:
+		payload = json.dumps({
+		  "from": "en_US",
+		  "to": "hi_IN",
+		  "text": str(x)
+		})
+		
+		headers = {
+		  'Content-Type': "application/json",
+		  'authorization': "Bearer a_25rccaCYcBC9ARqMODx2BV2M0wNZgDCEl3jryYSgYZtF1a702PVi4sxqi2AmZWyCcw4x209VXnCYwesx",
+		}
+		
+		response = requests.post(url, data=payload, headers=headers)
+		
+		return response.json()["result"]
+	except:
+		return x
 def find_station_code_list():
 	url = os.environ["stations"]
 	headers = {
@@ -90,7 +108,8 @@ def live_train_details(y):
 	response = requests.get(url, params=params, headers=headers)
 	all_d=response.json()
 	#print(all_d)
-	details+="Train Name: "+all_d["train_name"]+" ["+all_d["source"]+"->"+all_d["destination"]+"]\nTrain Code: "+str(all_d["train_number"])
+	details4=[]
+	details+="Train Full Details\n\nTrain Name: "+all_d["train_name"]+" ["+all_d["source"]+"->"+all_d["destination"]+"]\nTrain Code: "+str(all_d["train_number"])
 	if all_d.get("travelling_towards"):
 		details+="\nTrain Direction: "+str(all_d["travelling_towards"])
 	
@@ -111,7 +130,9 @@ def live_train_details(y):
 	if all_d.get("on_train_error_msg"):
 		details+="\nTrain Error Msg : "+str(all_d["on_train_error_msg"])
 	if all_d.get("current_station_name"):
-		details+="\nCurrent Station Name : "+"("+str(all_d["stoppage_number"])+")"+str(all_d["current_station_name"])+" ["+str(all_d["current_station_code"])+"]"
+		if str(all_d["stoppage_number"])!="0":
+			details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"]))+"\n")
+		details+="\nCurrent Station Name : "+"("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"]))+" ["+str(all_d["current_station_code"])+"]"
 	
 	if all_d.get("ahead_distance_text"):
 		details+="\nDistance From Current Station : "+str(all_d["ahead_distance_text"])
@@ -132,11 +153,11 @@ def live_train_details(y):
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
-				details2+="Upcomming Small Stations : "+sm+"\n\n"
+				details2+="Upcomming Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				
-				details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+")"+str(x["station_name"])+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
+				details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
 				if x["arrival_delay"]>0:
 					details2+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
 				details2+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
@@ -164,11 +185,11 @@ def live_train_details(y):
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
-				details1+="Previous Small Stations : "+sm+"\n\n"
+				details1+="Previous Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				
-				details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+str(x["station_name"])+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
+				details4.insert(0,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
 				if x["arrival_delay"]>0:
 					details1+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
 				details1+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
@@ -187,19 +208,26 @@ def live_train_details(y):
 					
 				details1+="\n"
 				details1+="\n"
-	return details,details2,details1
-A,B,C=(live_train_details(22463))
+	details4.insert(0,"𝗧𝗿𝗮𝗶𝗻 𝘀𝘂𝗺𝗺𝗮𝗿𝘆​\n")
+	return details,details2,details1,details4
+#A,B,C=(live_train_details(22463))
 def spliter(a):
-	b=re.split("\n\n",a)
+	jointer=""
+	if type(a)==type(""):
+		b=re.split(jointer,a)
+		jointer="\n\n"
+	if type(a)==type([]):
+		b=a
+		jointer="\n"
 	ret=[]
 	new=""
 	for i, x in enumerate(b):
 		
-		if len(new+x+"\n\n")<4096:
-			new=new+x+"\n\n"
+		if len(new+x+jointer)<4096:
+			new=new+x+jointer
 		else:
 			ret.append(new)
-			new=x+"\n\n"
+			new=x+jointer
 		if len(b)-1==i:
 			ret.append(new)
 		
