@@ -39,18 +39,22 @@ async def job2_partener2_2(client:Client,message:Message):
 		await app_bot.send_message(message.chat.id, str(x))
 		if message.chat.id<0:
 			await asyncio.sleep(5)
-	for x in spliter(B):
-		await app_bot.send_message(message.chat.id, str(x))
-		if message.chat.id<0:
-			await asyncio.sleep(5)
-	for x in spliter(C):
-		await app_bot.send_message(message.chat.id, str(x))
-		if message.chat.id<0:
-			await asyncio.sleep(5)
+	await asyncio.sleep(5)
 	for x in spliter(D):
 		await app_bot.send_message(message.chat.id, str(x))
 		if message.chat.id<0:
 			await asyncio.sleep(5)
+	await asyncio.sleep(5)
+	for x in spliter(B):
+		await app_bot.send_message(message.chat.id, str(x))
+		if message.chat.id<0:
+			await asyncio.sleep(5)
+	await asyncio.sleep(5)
+	for x in spliter(C):
+		await app_bot.send_message(message.chat.id, str(x))
+		if message.chat.id<0:
+			await asyncio.sleep(5)
+	
 	
 @app_bot.on_callback_query()
 async def answer(client, callback_query):
