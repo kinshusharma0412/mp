@@ -162,7 +162,7 @@ async def live_train_details(y,pp):
 				
 			else:
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"–>"+str(x["etd"]+"\n"))
+					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
 				elif x.get("stoppage_number") and x.get("station_name"):
 					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
@@ -198,7 +198,7 @@ async def live_train_details(y,pp):
 				
 			else:
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"–>"+str(x["etd"]+"\n"))
+					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
 				elif x.get("stoppage_number") and x.get("station_name"):
 					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
 				
@@ -296,7 +296,7 @@ async def new_trains_between_stations(a,b,c=None):
 		data=response.json()["train_between_stations"]+response.json()["reserved_trains"]+response.json()["alternate_trains"]
 		data.sort(key=sortDates)
 		details=""
-		alternate_trains =[ij["train_number"] for in data["alternate_trains"]]
+		alternate_trains =[ij["train_number"] for ij in data["alternate_trains"]]
 		for x in data:
 			if x["train_number"] in alternate_trains:
 				details+="~~Train Name: "+x["train_name"]+"~~\n"+"Train comming Date: "+datetime.datetime.strptime(x["train_date"],"%Y-%m-%d").strftime("%d-%m-%Y")+"\nTrain Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
