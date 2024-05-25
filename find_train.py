@@ -58,7 +58,7 @@ def trains_between_stations(From,To,Date=None):
 	url = os.environ["between"] +From+"/"+To
 	import re
 	if Date is None:
-		Date=datetime.datetime.now().strftime("%d-%m-%y")
+		Date=(datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y %I:%M %p").strftime("%d-%m-%y")
 	params = {
 	  'doj': Date
 	  }
@@ -271,7 +271,7 @@ def sortDates(datesList):
 	
 async def new_trains_between_stations(a,b,c=None):
 	if c is None:
-		c=datetime.datetime.now().strftime("%d-%m-%Y")
+		c=(datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y %I:%M %p").strftime("%d-%m-%Y")
 	url = os.environ["between_sta"]  
 	
 	params = {
@@ -296,11 +296,11 @@ async def new_trains_between_stations(a,b,c=None):
 		data=response.json()["train_between_stations"]+response.json()["reserved_trains"]+response.json()["alternate_trains"]
 		data.sort(key=sortDates)
 		details=""
-		alternate_trains =[ij["train_number"] for ij in data["alternate_trains"]]
+		alternate_trains =[ij["train_number"] for ij in response.json()["alternate_trains"]]
 		for x in data:
 			if x["train_number"] in alternate_trains:
 				details+="~~Train Name: "+x["train_name"]+"~~\n"+"Train comming Date: "+datetime.datetime.strptime(x["train_date"],"%Y-%m-%d").strftime("%d-%m-%Y")+"\nTrain Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
-			elif datetime.datetime.strptime(x["from_sta"],"%H:%M")<datetime.datetime.strptime(datetime.datetime.now().strftime("%H:%M"),"%H:%M") :
+			elif datetime.datetime.strptime(x["from_sta"],"%H:%M")<datetime.datetime.strptime((datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y %I:%M %p").strftime("%H:%M"),"%H:%M") :
 				details+="🅿🅰🆂🆃 Train Name: "+x["train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
 			else:
 				details+="​🇫​​🇺​​🇹​​🇺​​🇷​​🇪​ Train Name: "+x["extended_train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
@@ -310,7 +310,7 @@ async def new_trains_between_stations(a,b,c=None):
 		return details
 		datetime.datetime.strptime( t_str, "%H:%M").strftime('%I:%M %p')
 	else:
-		return "some error comes please send station_code and date (if date is not provided than i will search for today train) like this Example 👇👇👇\n\n /train_btw_station AWR JP "+datetime.datetime.now().strftime("%d-%m-%y")
+		return "some error comes please send station_code and date (if date is not provided than i will search for today train) like this Example 👇👇👇\n\n /train_btw_station AWR JP "+(datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y %I:%M %p").strftime("%d-%m-%y")
 #print((A))
 #print((B))
 #print((C))
