@@ -149,7 +149,7 @@ async def live_train_details(y):
 	details2=""
 	if all_d.get("upcoming_stations"):
 		for i,x in enumerate(all_d["upcoming_stations"]):
-			if i==0:
+			if False:#i==0:
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
@@ -181,7 +181,7 @@ async def live_train_details(y):
 	if all_d.get("upcoming_stations"):
 		jjj=0
 		for i,x in enumerate(all_d["previous_stations"]):
-			if i==0:
+			if False:#i==0:
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
