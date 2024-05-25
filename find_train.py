@@ -110,8 +110,6 @@ async def live_train_details(y,pp):
 	#print(all_d)
 	details4=[]
 	details+="Train Full Details\n\nTrain Name: "+all_d["train_name"]+" ["+all_d["source"]+"->"+all_d["destination"]+"]\nTrain Code: "+str(all_d["train_number"])
-	if all_d.get("std"):
-		details+="\nTrain Start Date: "+str(all_d["std"])
 	if all_d.get("travelling_towards"):
 		details+="\nTrain Direction: "+str(all_d["travelling_towards"])
 	
@@ -121,9 +119,11 @@ async def live_train_details(y,pp):
 		details+="\nTrain Total Distance : "+str(all_d["total_distance"])+"KM"
 	if all_d.get("run_days"):
 		details+="\nTrain Runs : "+str(all_d["run_days"])
-	
-	if all_d.get("train_start_date"):
-		details+="\nTrain Start Date : "+str(all_d["train_start_date"])
+		if all_d.get("std"):
+			da=datetime.datetime.strptime(all_d["std"],"%Y-%m-%d %H:%M")
+			while da.strftime("%a") not in x:
+				da+= datetime.timedelta(days=1)
+			details+="\nTrain Start Date : "+da.strftime("%d-%m-%Y %I:%M %p")
 	if all_d.get("new_message"):
 		details+="\n"+str(all_d["new_message"])
 	if all_d.get("new_alert_msg"):
@@ -296,9 +296,11 @@ async def new_trains_between_stations(a,b,c=None):
 		data=response.json()["train_between_stations"]+response.json()["reserved_trains"]+response.json()["alternate_trains"]
 		data.sort(key=sortDates)
 		details=""
-		
+		alternate_trains =[ij["train_number"] for in data["alternate_trains"]]
 		for x in data:
-			if datetime.datetime.strptime(x["from_sta"],"%H:%M")<datetime.datetime.strptime(datetime.datetime.now().strftime("%H:%M"),"%H:%M") :
+			if x["train_number"] in alternate_trains:
+				details+="~~Train Name: "+x["train_name"]+"~~\n"+"Train comming Date: "+datetime.datetime.strptime(x["train_date"],"%Y-%m-%d").strftime("%d-%m-%Y")+"\nTrain Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
+			elif datetime.datetime.strptime(x["from_sta"],"%H:%M")<datetime.datetime.strptime(datetime.datetime.now().strftime("%H:%M"),"%H:%M") :
 				details+="🅿🅰🆂🆃 Train Name: "+x["train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
 			else:
 				details+="​🇫​​🇺​​🇹​​🇺​​🇷​​🇪​ Train Name: "+x["extended_train_name"]+"\n"+"Train Code: `"+x["train_number"]+"`\n"+x["from_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["from_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["from_std"], "%H:%M").strftime('%I:%M %p')+"\n"+x["to_station_name"]+" arrival and departure time "+datetime.datetime.strptime( x["to_sta"], "%H:%M").strftime('%I:%M %p')+" - > "+datetime.datetime.strptime( x["to_std"], "%H:%M").strftime('%I:%M %p')+"\nTrain Run days: "+", ".join(x["run_days"])
