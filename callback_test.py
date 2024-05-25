@@ -23,7 +23,7 @@ from pyrogram.raw.types import ChatAdminRights
 from pyrogram.types import InputMediaPhoto, InputMediaVideo
 import tgcrypto,asyncio,datetime
 app_bot=Client("classplus_test",bot_token=os.environ["Soojh"],api_id=os.environ["api_id"],api_hash=os.environ["api_hash"])
-from find_train import spliter,train_finder,trains_between_stations,find_station_code,live_train_details,new_find_station_code
+from find_train import spliter,live_train_details,new_find_station_code,new_trains_between_stations
 #callback_query.message.chat.id
 @app_bot.on_message(filters.regex("^/train$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2(client:Client,message:Message):
