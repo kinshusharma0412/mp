@@ -159,22 +159,22 @@ async def live_train_details(y):
 				details2+="Upcomming Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				if x.get("eta") and x.get("etd"):
+				if x.get("eta") and x.get("etd") & x.get("stoppage_number") & x.get("station_name"):
 					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"--->"+str(x["etd"]+"\n"))
-				else:
+				elif x.get("stoppage_number") & x.get("station_name"):
 					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
-				
-				details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
-				if x["arrival_delay"]>0:
-					details2+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
-				details2+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
-				if x["a_day"]==0:
-					details2+="\nTrain comes Today"
-				elif x["a_day"]==1:
-					details2+="\nTrain comes Tomorrow"
-				elif x["a_day"]>2:
-					details2+=f"\nTrain comes after "+str(x["a_day"])+" Days"
-				#print(x)
+				if x.get("eta") and x.get("etd") & x.get("stoppage_number") & x.get("station_name"):
+					details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
+					if x["arrival_delay"]>0:
+						details2+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
+					details2+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
+					if x["a_day"]==0:
+						details2+="\nTrain comes Today"
+					elif x["a_day"]==1:
+						details2+="\nTrain comes Tomorrow"
+					elif x["a_day"]>2:
+						details2+=f"\nTrain comes after "+str(x["a_day"])+" Days"
+					#print(x)
 				if len(x["non_stops"])>0:
 					sm=""
 					for z in x["non_stops"]:
@@ -195,22 +195,23 @@ async def live_train_details(y):
 				details1+="Previous Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				if x.get("eta") and x.get("etd"):
+				if x.get("eta") and x.get("etd") & x.get("stoppage_number") & x.get("station_name"):
 					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"--->"+str(x["etd"]+"\n"))
-				else:
+				elif x.get("stoppage_number") & x.get("station_name"):
 					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
 				
 				jjj+=1
-				details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
-				if x["arrival_delay"]>0:
-					details1+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
-				details1+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
-				if x["a_day"]==0:
-					details1+="\nTrain comes Today"
-				elif x["a_day"]==-1:
-					details1+="\nTrain comes Yesterday"
-				elif x["a_day"]<-1:
-					details1+=f"\nTrain depart before "+str(x["a_day"]*(-1))+" Days"
+				if x.get("eta") and x.get("etd") & x.get("stoppage_number") & x.get("station_name"):
+					details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
+					if x["arrival_delay"]>0:
+						details1+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
+					details1+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
+					if x["a_day"]==0:
+						details1+="\nTrain comes Today"
+					elif x["a_day"]==-1:
+						details1+="\nTrain comes Yesterday"
+					elif x["a_day"]<-1:
+						details1+=f"\nTrain depart before "+str(x["a_day"]*(-1))+" Days"
 				if len(x["non_stops"])>0:
 					sm=""
 					for z in x["non_stops"]:
