@@ -95,12 +95,12 @@ def trains_between_stations(From,To,Date=None):
 #train_finder("rani")
 #print(trains_between_stations("AWR","JP"))
 #find_station_code("jaipur")
-async def live_train_details(y):
+async def live_train_details(y,pp):
 	import requests
 	details=""
-	url = os.environ["train_eta_data"] +str(y)+"/0.json"
+	url = os.environ["train_eta_data"] +str(y)+f"/{pp}.json"
 	params = {
-	  'start_day': "0"
+	  'start_day': pp
 	}
 	headers = {
 	  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
@@ -110,6 +110,8 @@ async def live_train_details(y):
 	#print(all_d)
 	details4=[]
 	details+="Train Full Details\n\nTrain Name: "+all_d["train_name"]+" ["+all_d["source"]+"->"+all_d["destination"]+"]\nTrain Code: "+str(all_d["train_number"])
+	if all_d.get("std"):
+		details+="\nTrain Start Date: "+str(all_d["std"])
 	if all_d.get("travelling_towards"):
 		details+="\nTrain Direction: "+str(all_d["travelling_towards"])
 	

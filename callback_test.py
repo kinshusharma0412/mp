@@ -35,8 +35,11 @@ to get Jai....... station details
 2) `/train_btw_station AWR JP """+datetime.datetime.now().strftime("%d-%m-%y")+"""`
 to get train details between two stations
 
-3) `/live_train_status 15013`
+3) `/live_train_status 15013 0`
 to get live train details 
+0 means train start today 
+-1 means train start yesterday and today is 2 day of train
+1 means train will start tomorrow 
 
 more command comming soon"""))
 
@@ -66,7 +69,13 @@ async def job2_partener2_2(client:Client,message:Message):
 @app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_3(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, "Bot is Alive! finding your train details...\nDon't forget to join channel @Polls_Quiz")
-	A,B,C,D=await live_train_details(re.sub("/live_train_status( |\n)","",message.text))
+	q=re.split(" {1,}",re.sub("/train_btw_station( |\n)","",message.text))
+	a=q[0]
+	if len(q)>1:
+		b=str(int(q[1])*(-1))
+	else:
+		b="0"
+	A,B,C,D=await live_train_details(a,b)
 	for x in spliter(A):
 		await app_bot.send_message(message.chat.id, str(x))
 		if message.chat.id<0:
