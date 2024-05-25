@@ -245,6 +245,24 @@ def spliter(a):
 			ret.append(new)
 		
 	return ret
+async def new_find_station_code(x):
+	url = os.environ["common_city_station_search"] 
+	params = {
+	  'q': str(x)
+	}
+	headers = {
+	  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+	}
+	response = requests.get(url, params=params, headers=headers)
+	if len(response.json()["items"])==0:
+		return "No Station find by your Query = "+x
+	details="Note: Copy Station Code by clicking it.\n\n"
+	#p(response.json()["items"])
+	for y in response.json()["items"]:
+		if y.get("station_code") and y.get("station_name") and y.get("city_name") and y.get("state_name"):
+			details+="Station Code: `"+y["station_code"]+"`\nStation Name: "+y["station_name"]+"\nCity: "+y["city_name"]+", "+y["state_name"]+"\n\n"
+	
+	return details
 #print((A))
 #print((B))
 #print((C))
