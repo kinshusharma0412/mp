@@ -66,7 +66,7 @@ async def job2_partener2_2(client:Client,message:Message):
 		if message.chat.id<0:
 			await asyncio.sleep(5)
 	await asyncio.sleep(5)
-@app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
+@app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_3(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, "Bot is Alive! finding your train details...\nDon't forget to join channel @Polls_Quiz")
 	q=re.split(" {1,}",re.sub("/live_train_status( |\n)","",message.text))
