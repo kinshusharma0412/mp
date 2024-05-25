@@ -131,7 +131,10 @@ async def live_train_details(y):
 		details+="\nTrain Error Msg : "+str(all_d["on_train_error_msg"])
 	if all_d.get("current_station_name"):
 		if str(all_d["stoppage_number"])!="0":
-			details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"]))+"\n")
+			if all_d.get("eta") and all_d.get("etd"):
+				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"])+" "+str(all_d["eta"])+"--->"+str(all_d["etd"]+"\n")))
+			else:
+				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"])))
 		details+="\nCurrent Station Name : "+"("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"]))+" ["+str(all_d["current_station_code"])+"]"
 	
 	if all_d.get("ahead_distance_text"):
@@ -156,7 +159,11 @@ async def live_train_details(y):
 				details2+="Upcomming Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				if x.get("eta") and x.get("etd"):
+					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"--->"+str(x["etd"]+"\n"))
+				else:
+					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				
 				details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
 				if x["arrival_delay"]>0:
 					details2+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
@@ -188,7 +195,11 @@ async def live_train_details(y):
 				details1+="Previous Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				if x.get("eta") and x.get("etd"):
+					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(x["eta"])+"--->"+str(x["etd"]+"\n"))
+				else:
+					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				
 				jjj+=1
 				details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
 				if x["arrival_delay"]>0:
