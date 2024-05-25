@@ -21,7 +21,7 @@ from pyrogram.raw.functions.messages import ForwardMessages
 from pyrogram.raw.functions.channels import GetFullChannel, EditAdmin
 from pyrogram.raw.types import ChatAdminRights
 from pyrogram.types import InputMediaPhoto, InputMediaVideo
-import tgcrypto,asyncio
+import tgcrypto,asyncio,datetime
 app_bot=Client("classplus_test",bot_token=os.environ["Soojh"],api_id=os.environ["api_id"],api_hash=os.environ["api_hash"])
 from find_train import spliter,train_finder,trains_between_stations,find_station_code,live_train_details,new_find_station_code
 #callback_query.message.chat.id
@@ -29,14 +29,14 @@ from find_train import spliter,train_finder,trains_between_stations,find_station
 async def job2_partener2(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, str("""commands is here
 
-1) /find_station station_name
-to get station details
+1) `/find_station Jai`
+to get Jai....... station details
 
-2) /train_btw_station first_station_code second_station_code
+2) `/train_btw_station AWR JP """+datetime.datetime.now().strftime("%d-%m-%y")+"""`
 to get train details between two stations
 
-3) /live_train_status train_number
-to get live train details
+3) `/live_train_status 15013`
+to get live train details 
 
 more command comming soon"""))
 
