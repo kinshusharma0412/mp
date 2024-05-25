@@ -34,6 +34,7 @@ async def job2_partener2_1(client:Client,message:Message):
 	trains_between_stations(re.sub("/live_train_status( |\n)","",message.text))
 @app_bot.on_message(filters.regex("^/live_train_status( |\n)\d{1,}$") & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2_2(client:Client,message:Message):
+	await app_bot.send_message(message.chat.id, "Bot is Alive! finding your train details...\nDon't forget to join channel @Polls_Quiz")
 	A,B,C,D=await live_train_details(re.sub("/live_train_status( |\n)","",message.text))
 	for x in spliter(A):
 		await app_bot.send_message(message.chat.id, str(x))
