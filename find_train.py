@@ -95,7 +95,7 @@ def trains_between_stations(From,To,Date=None):
 #train_finder("rani")
 #print(trains_between_stations("AWR","JP"))
 #find_station_code("jaipur")
-def live_train_details(y):
+async def live_train_details(y):
 	import requests
 	details=""
 	url = os.environ["train_eta_data"] +str(y)+"/0.json"
@@ -179,7 +179,7 @@ def live_train_details(y):
 				details2+="\n"
 	details1=""
 	if all_d.get("upcoming_stations"):
-		
+		jjj=0
 		for i,x in enumerate(all_d["previous_stations"]):
 			if i==0:
 				sm=""
@@ -188,7 +188,8 @@ def live_train_details(y):
 				details1+="Previous Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
-				details4.insert(0,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
+				jjj+=1
 				details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+str(x["sta"])+"--->"+str(x["std"])+"\nToday Time : "+str(x["eta"])+"--->"+str(x["etd"])
 				if x["arrival_delay"]>0:
 					details1+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
