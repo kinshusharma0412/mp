@@ -32,7 +32,7 @@ async def job2_partener2(client:Client,message:Message):
 1) `/find_station Jai`
 to get Jai....... station details
 
-2) `/train_btw_station AWR JP """+(datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y %I:%M %p").strftime("%d-%m-%Y")+"""`
+2) `/train_btw_station AWR JP """+(datetime.datetime.now()+datetime.timedelta(hours=5,minutes=30)).strftime("%d-%m-%Y")+"""`
 to get train details between two stations
 
 3) `/live_train_status 15013 0`
