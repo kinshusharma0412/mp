@@ -121,7 +121,7 @@ async def live_train_details(y,pp):
 		details+="\nTrain Runs : "+str(all_d["run_days"])
 		if all_d.get("std"):
 			da=datetime.datetime.strptime(all_d["std"],"%Y-%m-%d %H:%M")
-			while da.strftime("%a") not in x:
+			while da.strftime("%a") not in all_d["run_days"]:
 				da+= datetime.timedelta(days=1)
 			details+="\nTrain Start Date : "+da.strftime("%d-%m-%Y %I:%M %p")
 	if all_d.get("new_message"):
