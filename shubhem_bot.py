@@ -283,7 +283,7 @@ def hibernation(x):
 @shubham.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
 @mohit.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
-	await message.edit_message(translate_en(message.text))
+	await message.edit_text(translate_en(message.text))
 
 
 for x in range(1,24):
