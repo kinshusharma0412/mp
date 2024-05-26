@@ -65,6 +65,22 @@ headersList = {
 	        "sec-ch-ua-mobile": "?0",
 	        "sec-ch-ua-platform": '"Windows"',
 	    }
+def translate_en(x):
+	url=os.environ["translate"]
+	try:
+		payload = json.dumps({
+		  "from": "en_US",
+		  "to": "hi_IN",
+		  "text": str(x)
+		})
+		headers = {
+		  'Content-Type': "application/json",
+		  'authorization': "Bearer a_25rccaCYcBC9ARqMODx2BV2M0wNZgDCEl3jryYSgYZtF1a702PVi4sxqi2AmZWyCcw4x209VXnCYwesx",
+		}
+		response = requests.post(url, data=payload, headers=headers)
+		return response.json()["result"]
+	except:
+		return x
 @Soojh.on_message(filters.regex("app\.com") & filters.chat(["kinbin246",7177267619,6287942937,6892701715]) & filters.incoming & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=extractor.find_urls(reaaa.sub("\n", " ",message.text))
@@ -262,6 +278,14 @@ def hibernation(x):
 	url = "https://share.streamlit.io/api/v2/apps/"+x+"/restart"
 	response = requests.post(url, headers=headers)
 	shubham.send_message("Kinbin246","bot start message\n\n"+str(response.text))
+
+#@monu.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
+@shubham.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
+@mohit.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
+async def job2g_partener2(client:Client,message:Message):
+	await message.edit_message(translate_en(message.text))
+
+
 for x in range(1,24):
 	print(scheduler.add_job(hibernation, 'cron', hour=x,minute=40,args=('fe40a14b-bf57-4e11-b4b7-9b45b94d12e9',)))
 print(scheduler.add_job(hibernation, 'cron', hour=7,minute=30,args=('568d29c8-cc98-4cee-937b-144d7ddf94f3',)))
