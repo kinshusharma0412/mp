@@ -25,7 +25,7 @@ import tgcrypto,asyncio,datetime
 app_bot=Client("classplus_test",bot_token=os.environ["Soojh"],api_id=os.environ["api_id"],api_hash=os.environ["api_hash"])
 from find_train import spliter,live_train_details,new_find_station_code,new_trains_between_stations
 #callback_query.message.chat.id
-@app_bot.on_message(filters.regex("^/train$") & ~ filters.scheduled )#& filters.incoming)
+@app_bot.on_message(filters.command(["train"]) & ~ filters.scheduled )#& filters.incoming)
 async def job2_partener2(client:Client,message:Message):
 	await app_bot.send_message(message.chat.id, str("""commands is here
 
@@ -214,12 +214,12 @@ def hibernation(x):
 #print(scheduler.add_job(all_restart_hibernation, 'interval', minutes=30,args=("x",)))
 os.system("playwright install")
 #os.system("sudo playwright install-deps")
-@app_bot.on_message(filters.regex("^/text_to_image") & filters.incoming)
+@app_bot.on_message(filters.command(["text_to_image"]) & filters.incoming)
 async def text_to_image(client:Client,message:Message):
 	query=re.split("\n",message.text)
 	sucess=False
 	if len(query)==1:
-		await message.reply_text("invalid command")
+		await message.reply_text("invalid command\n\n please press enter button after command /text_to_image and add your query")
 	else:
 		sucess=True
 	if sucess:
