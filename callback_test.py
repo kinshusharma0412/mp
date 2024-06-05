@@ -142,7 +142,7 @@ headers = {
   'referer': "https://share.streamlit.io/",
   'accept-language': "en-IN,en;q=0.9,en-US;q=0.8,hi;q=0.7",
   'priority': "u=1, i",
-  'Cookie': os.environ["xcsrftoken"]
+  'Cookie': os.environ["cookies_header"]
 }
 
 
