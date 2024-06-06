@@ -81,7 +81,7 @@ def translate_en(x):
 		return response.json()["result"]
 	except:
 		return x
-@Soojh.on_message(filters.regex("app\.com") & filters.chat(["kinbin246",7177267619,6287942937,6892701715,6779478298]) & filters.incoming & ~ filters.scheduled )#& filters.incoming)
+@Soojh.on_message(filters.regex("(app|box)\.com") & filters.chat(["kinbin246",6779478298]) & filters.incoming & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener4(client:Client,message:Message):
 	yy=extractor.find_urls(reaaa.sub("\n", " ",message.text))
 	for x in message.entities:
