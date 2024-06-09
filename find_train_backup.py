@@ -134,10 +134,10 @@ async def live_train_details(y,pp):
 	if all_d.get("current_station_name"):
 		if str(all_d["stoppage_number"])!="0":
 			if all_d.get("eta") and all_d.get("etd"):
-				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+(str(all_d["current_station_name"])+" "+datetime.datetime.strptime( all_d["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+str(datetime.datetime.strptime( all_d["etd"], "%H:%M").strftime('%I:%M %p')+"\n")))
+				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"])+" "+datetime.datetime.strptime( all_d["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+str(datetime.datetime.strptime( all_d["etd"], "%H:%M").strftime('%I:%M %p')+"\n")))
 			else:
-				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+(str(all_d["current_station_name"])))
-		details+="\nCurrent Station Name : "+"("+str(all_d["stoppage_number"])+") "+(str(all_d["current_station_name"]))+" ["+str(all_d["current_station_code"])+"]"
+				details4.append("​\n🇨 ("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"])))
+		details+="\nCurrent Station Name : "+"("+str(all_d["stoppage_number"])+") "+translate_en(str(all_d["current_station_name"]))+" ["+str(all_d["current_station_code"])+"]"
 	
 	if all_d.get("ahead_distance_text"):
 		details+="\nDistance From Current Station : "+str(all_d["ahead_distance_text"])
@@ -158,15 +158,15 @@ async def live_train_details(y,pp):
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
-				details2+="Upcomming Small Stations : "+(sm)+"\n\n"
+				details2+="Upcomming Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details4.append("🇺 ("+str(x["stoppage_number"])+") "+(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
+					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
 				elif x.get("stoppage_number") and x.get("station_name"):
-					details4.append("🇺 ("+str(x["stoppage_number"])+") "+(str(x["station_name"])))
+					details4.append("🇺 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+datetime.datetime.strptime( x["sta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["std"], "%H:%M").strftime('%I:%M %p')+"\nToday Time : "+datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')
+					details2+="Upcoming Station Name : "+"("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nDetails : "+str(x["distance_from_current_station_txt"])+"\nIdeal Time : "+datetime.datetime.strptime( x["sta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["std"], "%H:%M").strftime('%I:%M %p')+"\nToday Time : "+datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')
 					if x["arrival_delay"]>0:
 						details2+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
 					details2+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
@@ -194,17 +194,17 @@ async def live_train_details(y,pp):
 				sm=""
 				for z in x["non_stops"]:
 					sm+=z["station_name"]+", "
-				details1+="Previous Small Stations : "+(sm)+"\n\n"
+				details1+="Previous Small Stations : "+translate_en(sm)+"\n\n"
 				
 			else:
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
+					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"]))+" "+str(datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p'))+"–>"+str(datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')+"\n"))
 				elif x.get("stoppage_number") and x.get("station_name"):
-					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+(str(x["station_name"])))
+					details4.insert(jjj,"​🇵 ("+str(x["stoppage_number"])+") "+translate_en(str(x["station_name"])))
 				
 				jjj+=1
 				if x.get("eta") and x.get("etd") and x.get("stoppage_number") and x.get("station_name"):
-					details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+datetime.datetime.strptime( x["sta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["std"], "%H:%M").strftime('%I:%M %p')+"\nToday Time : "+datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')
+					details1+="Previous Station Name : "+"("+str(x["stoppage_number"])+")"+translate_en(str(x["station_name"]))+" ["+str(x["station_code"])+"]\nIdeal Time : "+datetime.datetime.strptime( x["sta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["std"], "%H:%M").strftime('%I:%M %p')+"\nToday Time : "+datetime.datetime.strptime( x["eta"], "%H:%M").strftime('%I:%M %p')+"–>"+datetime.datetime.strptime( x["etd"], "%H:%M").strftime('%I:%M %p')
 					if x["arrival_delay"]>0:
 						details1+="\nArrival Delay : "+str(x["arrival_delay"])+" min"
 					details1+="\nPlatform Number : "+str(x["platform_number"])+"\nPlatfoem Stay Time : "+str(x["halt"])
@@ -227,17 +227,12 @@ async def live_train_details(y,pp):
 	return details,details2,details1,details4
 #A,B,C=(live_train_details(22463))
 def spliter(a):
-	
 	jointer=""
 	if type(a)==type(""):
 		jointer="\n\n"
-		a=translate_en(a)
 		b=re.split(jointer,a)
 	if type(a)==type([]):
-		b=[]
-		for xx in a:
-			b.append(translate_en(str(xx)))
-		#b=a
+		b=a
 		jointer="\n"
 	ret=[]
 	new=""
