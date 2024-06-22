@@ -281,7 +281,7 @@ def hibernation(x):
 
 #@monu.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
 @shubham.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
-@mohit.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
+#@mohit.on_message(filters.text & filters.outgoing & ~ filters.scheduled)#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	await message.edit_text(translate_en(message.text))
 
