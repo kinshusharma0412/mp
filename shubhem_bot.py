@@ -198,7 +198,7 @@ async def job2g_partener2(client:Client,message:Message):
 		        await monu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 		
 		
-@mohit.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
+#@mohit.on_message(filters.regex("^(https://t.me/|Me/).*?\n") & filters.chat(["me","kinbin246",598871517]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
         
@@ -211,28 +211,28 @@ async def job2g_partener2(client:Client,message:Message):
 		        xx=reaaa.sub("c/","-100",zz)
 		        xx=reaaa.split("/",xx)
 		        try:
-		        	y=await sonu.get_messages(int(xx[0]),int(xx[1]))
+		        	y=await client.get_messages(int(xx[0]),int(xx[1]))
 		        except:
-		        	y=await sonu.get_messages(xx[0],int(xx[1]))
+		        	y=await client.get_messages(xx[0],int(xx[1]))
 		        
-		        mid=(await sonu.send_message(message.chat.id,str("downloading is progressing..."))).id
+		        mid=(await client.send_message(message.chat.id,str("downloading is progressing..."))).id
 		        async def progress(current, total,message,client,mid,zzz):
 		        	if current*100%11 ==0:
 			        	if mid is None:
-				        	await sonu.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
+				        	await client.send_message(message.chat.id,str(f"{current * 100 / total:.1f}% "+zzz))
 			        	else:
 				        	pass#await asyncio.sleep(1)#await sonu.edit_message_text(message.chat.id,mid,str(f"{current * 100 / total:.1f}% "+zzz))
 				
 		        
 		        
-		        z=await sonu.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
-		        await sonu.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
+		        z=await client.download_media(y, progress=progress,progress_args=(message,client,mid,"downloading"))
+		        await client.send_document(message.chat.id,z,caption=str(y.caption),caption_entities=y.caption_entities,progress=progress,progress_args=(message,client,mid,"uploading"))
 		
-		        await sonu.delete_messages(chat_id=message.chat.id, message_ids=mid)
+		        await client.delete_messages(chat_id=message.chat.id, message_ids=mid)
 		        os.remove(z)
 		#
 	        except Exception as e:
-		        await sonu.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
+		        await client.edit_message_text(message.chat.id, mid,x+" Error:- "+str(e))
 
 
 def profile_photo_soojh():
