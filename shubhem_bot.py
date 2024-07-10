@@ -42,7 +42,7 @@ scheduler.start()
 shubham=Client("shubhem new",session_string=os.environ['shubhem'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 mohit=Client("mohit",session_string=os.environ['mohit'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 monu=Client("monu",session_string=os.environ['monu'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
-sonu=Client("sonu kumar",session_string="BQDQx-MAu5H0aHV_jebewJzC_jqu4v4ZhB94iPIs9JLLkkjHSPrEbC8AGTX-IzOFI7ijQ1mdmwNpXZFL5fANFSBy2M5r6zUJltR-xJsQicsIeQZ0QjCUeFA6o64KIENGE0j_K6UssGwh7j-G9uHcPPN1dthewNzdDLcRvITu9Gcx1EsUjvQth_TZz5AxudPX6fnAOolKIa3BIEJKAUFHbpfyCp8Xq_HjdcFilHwy4KSd0I_xc_uE1UxYBfO3EPaT-GPbfseGdI_FpPYrTAusD_HMToTkVy0b41Hw5QI6FAYr8_7AqcMY-SzH6wJufhHKjUOOvwAAAAGQRHZnAA",api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
+sonu=Client("sonu kumar",session_string=os.environ['sonu'],api_id="13682659",api_hash="b984d240c5258407ea911f042c9d75f6")
 Soojh = Client("SoojhT",
 bot_token=os.environ['Soojh'],
 api_id="13682659",
@@ -112,6 +112,7 @@ async def job2g_partener4(client:Client,message:Message):
 			
 @monu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
 @shubham.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
+@sonu.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.private & ~ filters.scheduled )#& filters.incoming)
 @mohit.on_message(filters.regex("^(https://t.me/|Me/).*?(-|–)\d{1,}") & filters.chat(["me","kinbin246",6287942937,6892701715]) & ~ filters.scheduled )#& filters.incoming)
 async def job2g_partener2(client:Client,message:Message):
 	
@@ -306,12 +307,17 @@ def main():
 	
 	@st.cache_resource
 	def init_connection2():
+		return sonu.start()
+	_=init_connection2()
+	@st.cache_resource
+	def init_connection2():
 		return Soojh.start()
 	_=init_connection2()
 	
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
 	monu.send_message("Kinbin246","[monu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
+	sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
