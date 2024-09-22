@@ -308,7 +308,7 @@ def main():
 	@st.cache_resource
 	def init_connection2():
 		return sonu.start()
-	_=init_connection2()
+	#_=init_connection2()
 	@st.cache_resource
 	def init_connection2():
 		return Soojh.start()
@@ -317,7 +317,7 @@ def main():
 	st.write(url_page)
 	shubham.send_message("Kinbin246","Shubham Bot Restart Sucessful url = "+str(url_page),disable_web_page_preview=True)
 	monu.send_message("Kinbin246","[monu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
-	sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
+	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	#sonu.send_message("Kinbin246","[sonu Bot Restart Sucessful]("+url_page+")",disable_web_page_preview=True)
 	idle()
 	shubham.send_message("Kinbin246","Shubham Bot stoped")
