@@ -1,270 +1,453 @@
+import re,os 
+from urllib.parse import parse_qs, urlparse
+
+import requests
+import tqdm
 import requests,os,time
 from tqdm import tqdm
 from pprint import pprint as p
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from prog_bar import progress_for_pyrogram
+
+
+
+
+import re
+from urllib.parse import parse_qs, urlparse
+
+import requests
+import tqdm
+
+
+
+COOKIE=os.environ["Cookie"]
+
+
+def get_formatted_size(size_bytes: int) -> str:
+    """
+    Returns a human-readable file size from the given number of bytes.
+
+    Parameters:
+        size_bytes (int): The number of bytes to be converted to a file size.
+
+    Returns:
+        str: The file size in a human-readable format.
+    """
+    if size_bytes >= 1024 * 1024:
+        size = size_bytes / (1024 * 1024)
+        unit = "MB"
+    elif size_bytes >= 1024:
+        size = size_bytes / 1024
+        unit = "KB"
+    else:
+        size = size_bytes
+        unit = "b"
+
+    return f"{size:.2f} {unit}"
+
+
+def check_url_patterns(url):
+    patterns = [
+        r"ww\.mirrobox\.com",
+        r"www\.nephobox\.com",
+        r"freeterabox\.com",
+        r"www\.freeterabox\.com",
+        r"1024tera\.com",
+        r"4funbox\.co",
+        r"www\.4funbox\.com",
+        r"mirrobox\.com",
+        r"nephobox\.com",
+        r"terabox\.app",
+        r"terabox\.com",
+        r"www\.terabox\.ap",
+        r"www\.terabox\.com",
+        r"www\.1024tera\.co",
+        r"www\.momerybox\.com",
+        r"teraboxapp\.com",
+        r"momerybox\.com",
+        r"tibibox\.com",
+        r"www\.tibibox\.com",
+        r"www\.teraboxapp\.com",
+        #r"teraboxlinks\.com",
+    ]
+
+    for pattern in patterns:
+        if re.search(pattern, url):
+            return True
+
+    return True
+
+
+def get_urls_from_string(string: str) -> list[str]:
+    """
+    Extracts URLs from a given string.
+
+    Args:
+        string (str): The input string from which to extract URLs.
+
+    Returns:
+        list[str]: A list of URLs extracted from the input string. If no URLs are found, an empty list is returned.
+    """
+    pattern = r"(https?://\S+)"
+    urls = re.findall(pattern, string)
+    urls = [url for url in urls if check_url_patterns(url)]
+    if not urls:
+        return []
+    return urls[0]
+
+
+def find_between(data: str, first: str, last: str) -> str | None:
+    """
+    Searches for the first occurrence of the `first` string in `data`,
+    and returns the text between the two strings.
+
+    Args:
+        data (str): The input string.
+        first (str): The first string to search for.
+        last (str): The last string to search for.
+
+    Returns:
+        str | None: The text between the two strings, or None if the
+            `first` string was not found in `data`.
+    """
+    try:
+        start = data.index(first) + len(first)
+        end = data.index(last, start)
+        return data[start:end]
+    except ValueError:
+        return None
+
+
+def extract_surl_from_url(url: str) -> str | None:
+    """
+    Extracts the surl parameter from a given URL.
+
+    Args:
+        url (str): The URL from which to extract the surl parameter.
+
+    Returns:
+        str: The surl parameter, or False if the parameter could not be found.
+    """
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    surl = query_params.get("surl", [])
+
+    if surl:
+        return surl[0]
+    else:
+        return False
+
+
+
 async def box(video,message):
-	
-	
-	url = "http://www.nephobox.com/api/shorturlinfo"
-	
-	params = {
-	  'type': "0",
-	  'root': "1",
-	  'shorturl': video.split("/")[-1],
-	  'bdstoken': "a651886f55e214a155d1650d797d9fa0",
-	  'wp_retry_num': "2",
-	  'devuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'clienttype': "1",
-	  'channel': "android_12_M2102J20SI_bd-dubox_1024074a",
-	  'version': "3.10.6",
-	  'logid': "MTcxNDEwNjU1NDgyMyxmZTgwOjoyOWU4OmI4NGE6OGM1YTo4ZTZiJXJtbmV0X2RhdGEwLDQwMjQwMQ",
-	  'lang': "en_IN",
-	  'versioncode': "270",
-	  'ZID': "TGpMaygLfzHBdgUM3nc1d3W19GAsWUlVJVP8nW5lXbUxAJQhiMoH4mrstFsN4DWxfDsWagaZKJuSyO5G94gLG9w",
-	  'isVip': "1",
-	  'bgstatus': "0",
-	  'carrier_country': "in",
-	  'device_country': "in",
-	  'activestatus': "0",
-	  'startDevTime': "1714106554825",
-	  'firstlaunchtime': "1682157138",
-	  'time': "1714106554127",
-	  'cuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'network_type': "wifi",
-	  'apn_id': "1_-1",
-	  'carrier': "_in",
-	  'af_media_source': "null",
-	  'rand': "11f44ef836ff37a8549fe88e9886f53199e1a61a"
-	}
-	
-	headers = {
-	  'User-Agent': "dubox;3.10.6;M2102J20SI;android-android;12;JSbridge1.0.10;jointbridge;1.1.39;",
-	  'Connection': "Keep-Alive",
-	  'Accept-Encoding': "gzip",
-	  'Referer': "https://terabox.com/",
-	  'Cookie': os.environ["Cookie"]
-	}
-	
-	response = requests.get(url, params=params, headers=headers)
-	
-	res0=(response.json())
-	
-	
-	
-	url = "http://www.nephobox.com/share/list"
-	
-	params = {
-	  'shareid': str(res0['shareid']),
-	  'uk': str(res0['uk']),
-	  'root': "1",
-	  'sign': "207d2b7eb562b28f5d06f651f673d2887dc30517",
-	  'timestamp': "1714106555",
-	  'share_type': "100",
-	  'bdstoken': "a651886f55e214a155d1650d797d9fa0",
-	  'wp_retry_num': "2",
-	  'devuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'clienttype': "1",
-	  'channel': "android_12_M2102J20SI_bd-dubox_1024074a",
-	  'version': "3.10.6",
-	  'logid': "MTcxNDEwNjU1NjkwMixmZTgwOjoyOWU4OmI4NGE6OGM1YTo4ZTZiJXJtbmV0X2RhdGEwLDM1MjAzOA",
-	  'lang': "en_IN",
-	  'versioncode': "270",
-	  'ZID': "TGpMaygLfzHBdgUM3nc1d3W19GAsWUlVJVP8nW5lXbUxAJQhiMoH4mrstFsN4DWxfDsWagaZKJuSyO5G94gLG9w",
-	  'isVip': "1",
-	  'bgstatus': "0",
-	  'carrier_country': "in",
-	  'device_country': "in",
-	  'activestatus': "0",
-	  'startDevTime': "1714106556903",
-	  'firstlaunchtime': "1682157138",
-	  'time': "1714106556205",
-	  'cuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'network_type': "wifi",
-	  'apn_id': "1_-1",
-	  'carrier': "_in",
-	  'af_media_source': "null",
-	  'rand': "ed5f5e41fc94871889e86c6e52db96f9682c8148"
-	}
-	
-	headers = {
-	  'User-Agent': os.environ["User_Agent"],
-	  'Connection': "Keep-Alive",
-	  'Accept-Encoding': "gzip",
-	  'Referer': "https://terabox.com/",
-	  'Cookie': os.environ["Cookie"]
-	}
-	
-	response = requests.get(url, params=params, headers=headers)
-	
-	res1=(response.json())
-	#p(res1)
-	
-	
-	url = "https://data.nephobox.com/rest/2.0/pcs/file"
-	
-	params = {
-	  'app_id': "250528",
-	  'method': "locatedownload",
-	  'check_blue': "1",
-	  'es': "1",
-	  'esl': "1",
-	  'path': "c8feeaa3936a0fde63d488655ac3df3e",
-	  'fid': "4400322554685-250528-757674488109978",
-	  'dstime': "1714108605",
-	  'rt': "sh",
-	  'sign': "FDtAER-DCb740ccc5511e5e8fedcff06b081203-wC1nLEODPupIwHQWbltcUvS6V+s=",
-	  'expires': "8h",
-	  'chkv': "0",
-	  'chkbd': "0",
-	  'chkpc': "",
-	  'dp-logid': "397357232512726888",
-	  'dp-callid': "0",
-	  'r': "647231068",
-	  'sh': "1",
-	  'region': "jp",
-	  'ver': "4.0",
-	  'dtype': "1",
-	  'err_ver': "1.0",
-	  'ehps': "1",
-	  'eck': "1",
-	  'vip': "2",
-	  'clienttype': "17",
-	  'version': "2.2.91.165",
-	  'time': "1714108524",
-	  'rand': "1f41be8945fd4c63c4b12659760d2d6bb2e9e4ce",
-	  'devuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'channel': "0",
-	  'version_app': "3.10.6"
-	}
-	
-	payload = "+="
-	
-	headers = {
-	  'User-Agent': os.environ["User_Agent"],
-	  'Content-Type': "application/x-www-form-urlencoded",
-	  'Cookie': os.environ["Cookie"]
-	}
-	dlink=res1["list"][0]["dlink"]
-	parsed_url = urlparse(dlink)
-	captured_value = parse_qs(parsed_url.query)
-	for x in params.keys():
-		if x in captured_value:
-			params[x]=",".join(captured_value[x])
-	params["path"]=dlink.split("/")[-1].split("?")[0]
-	response = requests.post(url, params=params, data=payload, headers=headers)
-	
-	res2=(response.json())
-	#p(res2)
-	
-	url = res2["urls"][0]["url"]
-	
-	
-	#url = res1['list'][0]['dlink'].split("?")[0]
-	#print(url)
-	params = {
-	  'bkt': "en-2e2b5030dd6ff03722e8ca2e41a83e9939ae9853cf9bbe07b07d2378dae580f4a5e80eef67f79149",
-	  'xcode': "1ac243f1beaf965eb719edec90225c1e3aee7835678ab9ef3d9d519f170236157461330ab8d8541fd5747c8387c428647eec1dc943ac4176",
-	  'fid': "4402084097765-250528-309144370580587",
-	  'time': "1714114519",
-	  'sign': "FDTAXUGERLQlBHSKfaon-DCb740ccc5511e5e8fedcff06b081203-TdoDjzxp3kaYVKCd+Iw5E6UuGW4=",
-	  'signbak': "",
-	  'to': "nd7",
-	  'size': "710767110",
-	  'sta_dx': "710767110",
-	  'sta_cs': "6268",
-	  'sta_ft': "Mp4",
-	  'sta_ct': "4",
-	  'sta_mt': "4",
-	  'fm2': "MH,jp,Anywhere,,UmFqYXN0aGFu,any",
-	  'region': "jp",
-	  'ctime': "1711709604",
-	  'mtime': "1711710941",
-	  'resv0': "-1",
-	  'resv1': "0",
-	  'resv2': "rlim",
-	  'resv3': "5",
-	  'resv4': "710767110",
-	  'vuk': "4400809866228",
-	  'iv': "0",
-	  'htype': "",
-	  'randtype': "",
-	  'esl': "1",
-	  'newver': "1",
-	  'newfm': "1",
-	  'secfm': "1",
-	  'flow_ver': "3",
-	  'pkey': "en-e5d0c2861d6dfc8416eec296be081ef5f95a8bbbe42b3767162935c70d0ee0acf70cdaa8d74724f6",
-	  'sl': "70713421",
-	  'expires': "1714143319",
-	  'rt': "sh",
-	  'r': "887051128",
-	  'sh': "1",
-	  'mlogid': "398943845783269659",
-	  'vbdid': "-",
-	  'fin': "_Queen_Of_Tears_2024_S01E04_720p_Hindi_Dubbed_NF_WEB_DL_×264.Mp4",
-	  'bflag': "nd7,nd7,147,365,141,316-nd7",
-	  'err_ver': "1.0",
-	  'check_blue': "1",
-	  'rtype': "1",
-	  'devuid': "CEF3CB84F01687048B6DDF92CEA6823F|VVCAT2JPH",
-	  'dp-logid': "398943845783269659",
-	  'dp-callid': "0.1.1",
-	  'hps': "1",
-	  'tsl': "1000",
-	  'csl': "1000",
-	  'fsl': "-1",
-	  'csign': "BOnV7ZQN0gX+EC0Ne6+760cujMk=",
-	  'so': "0",
-	  'ut': "6",
-	  'uter': "3",
-	  'serv': "1",
-	  'uc': "1945175977",
-	  'ti': "14a3010384c1ca3c38b1884a650b6e44f891c8c22f00a781a6c2ad6eeb587c84",
-	  'sta_eck': "1",
-	  'ogr': "0",
-	  'rregion': "",
-	  'adg': "",
-	  'reqlabel': "250528_l_db2294ef898b68b41c3d0033783bad19_-1_00e15eb90919fa1a7ce03aeb2ad3c95d",
-	  'ccn': "IN",
-	  'by': "themis"
-	}
-	parsed_url = urlparse(url)
-	captured_value = parse_qs(parsed_url.query)
-	for x in params.keys():
-		if x in captured_value:
-			params[x]=",".join(captured_value[x])
-	
-	
-	headers = {
-	  'User-Agent': os.environ["User_Agent"],
-	  'Connection': "Keep-Alive",
-	  'Range': "bytes=0-"+params['size']
-	}
-	
-	
-	response = requests.get(res1["list"][0]["thumbs"]['url3'], stream=True)
-	with open("thumb.jpeg", "wb") as handle:
-	    for data in tqdm(response.iter_content()):
-	        handle.write(data)
-	response = requests.get(url.split("?")[0], params=params, headers=headers,stream=True)
-	total_length = int(params['size'])
-	
-	
-#	with open(params["fin"],'wb') as f: 
-#	    f.write(response.content)
-	now = time.time()
-	
-	with open(params["fin"], "wb") as handle:
-	    dl=0
-	    for data in tqdm(response.iter_content(chunk_size=1024*1024)):
-	        dl+=len(data)
-	        await progress_for_pyrogram(current=dl,
-    total=total_length,
-    ud_type="Downloading :-  "+params["fin"],
+    r = requests.Session()
+    headersList = {
+'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  'Upgrade-Insecure-Requests': "1",
+  'Sec-Fetch-Site': "none",
+  'Sec-Fetch-Mode': "navigate",
+  'Sec-Fetch-Dest': "document",
+  'sec-ch-ua': "\"Not A;Brand\";v=\"99\", \"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\"",
+  'sec-ch-ua-mobile': "?0",
+  'sec-ch-ua-platform': "\"Windows\"",
+  'Accept-Language': "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": COOKIE,
+
+    }
+
+    payload = ""
+
+    response = r.get(url, data=payload, headers=headersList)
+    response = r.get(response.url, data=payload, headers=headersList)
+    logid = find_between(response.text, "dp-logid=", "&")
+    jsToken = find_between(response.text, "fn%28%22", "%22%29")
+    bdstoken = find_between(response.text, 'bdstoken":"', '"')
+    shorturl = extract_surl_from_url(response.url)
+    if not shorturl:
+        return False
+
+    reqUrl = f"https://www.terabox.app/share/list?app_id=250528&web=1&channel=0&jsToken={jsToken}&dp-logid={logid}&page=1&num=20&by=name&order=asc&site_referer=&shorturl={shorturl}&root=1"
+
+    headersList = {
+'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  'Upgrade-Insecure-Requests': "1",
+  'Sec-Fetch-Site': "none",
+  'Sec-Fetch-Mode': "navigate",
+  'Sec-Fetch-Dest': "document",
+  'sec-ch-ua': "\"Not A;Brand\";v=\"99\", \"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\"",
+  'sec-ch-ua-mobile': "?0",
+  'sec-ch-ua-platform': "\"Windows\"",
+  'Accept-Language': "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Cookie": COOKIE,
+
+    }
+
+    payload = ""
+
+    response = r.get(reqUrl, data=payload, headers=headersList)
+
+    if not response.status_code == 200:
+        return False
+    r_j = response.json()
+    print(r_j)
+    if r_j["errno"]:
+        return False
+    if not "list" in r_j and not r_j["list"]:
+        return False
+
+    response = r.head(r_j["list"][0]["dlink"], headers=headersList)
+    direct_link = response.headers.get("location")
+    data = {
+        "file_name": r_j["list"][0]["server_filename"],
+        "link": r_j["list"][0]["dlink"],
+        "direct_link": direct_link,
+        "thumb": r_j["list"][0]["thumbs"]["url3"],
+        "size": get_formatted_size(int(r_j["list"][0]["size"])),
+        "sizebytes": int(r_j["list"][0]["size"]),
+    }
+    headers = {'User-Agent': "dubox;3.31.2;M2102J20SI;android-android;12;JSbridge1.0.10;jointbridge;1.1.39;",
+  'Connection': "Keep-Alive",
+  'Range': "bytes=0-"+str(data["sizebytes"])}
+    reaponce=requests.get(re.sub("https://d.terabox.app","https://d.terabox.app",data["link"]),headers=headers, stream=True)
+    print(data["file_name"])
+    now = time.time()
+    
+    with open(data["file_name"], 'wb') as f, tqdm.tqdm(
+      desc="Downloading",
+      total=data["sizebytes"],
+      unit='MB',
+      unit_scale=True,
+      unit_divisor=1024,
+  ) as bar:
+        dl=0
+        for chunk in reaponce.iter_content(chunk_size=1024*1024):
+           if chunk:
+              dl+=len(chunk)
+              await progress_for_pyrogram(current=dl,
+    total=data["sizebytes"],
+    ud_type="Downloading :-  "+data["file_name"],
     message=message,
     start=now)
-	        
-	        handle.write(data)
-	return params["fin"],"thumb.jpeg"
+              size=f.write(chunk)
+              bar.update(size)
+    return data["file_name"],data["thumb"]
+
+
+def get_formatted_size(size_bytes: int) -> str:
+    """
+    Returns a human-readable file size from the given number of bytes.
+
+    Parameters:
+        size_bytes (int): The number of bytes to be converted to a file size.
+
+    Returns:
+        str: The file size in a human-readable format.
+    """
+    if size_bytes >= 1024 * 1024:
+        size = size_bytes / (1024 * 1024)
+        unit = "MB"
+    elif size_bytes >= 1024:
+        size = size_bytes / 1024
+        unit = "KB"
+    else:
+        size = size_bytes
+        unit = "b"
+
+    return f"{size:.2f} {unit}"
+
+
+def check_url_patterns(url):
+    patterns = [
+        r"ww\.mirrobox\.com",
+        r"www\.nephobox\.com",
+        r"freeterabox\.com",
+        r"www\.freeterabox\.com",
+        r"1024tera\.com",
+        r"4funbox\.co",
+        r"www\.4funbox\.com",
+        r"mirrobox\.com",
+        r"nephobox\.com",
+        r"terabox\.app",
+        r"terabox\.com",
+        r"www\.terabox\.ap",
+        r"www\.terabox\.com",
+        r"www\.1024tera\.co",
+        r"www\.momerybox\.com",
+        r"teraboxapp\.com",
+        r"momerybox\.com",
+        r"tibibox\.com",
+        r"www\.tibibox\.com",
+        r"www\.teraboxapp\.com",
+        #r"teraboxlinks\.com",
+    ]
+
+    for pattern in patterns:
+        if re.search(pattern, url):
+            return True
+
+    return True
+
+
+def get_urls_from_string(string: str) -> list[str]:
+    """
+    Extracts URLs from a given string.
+
+    Args:
+        string (str): The input string from which to extract URLs.
+
+    Returns:
+        list[str]: A list of URLs extracted from the input string. If no URLs are found, an empty list is returned.
+    """
+    pattern = r"(https?://\S+)"
+    urls = re.findall(pattern, string)
+    urls = [url for url in urls if check_url_patterns(url)]
+    if not urls:
+        return []
+    return urls[0]
+
+
+def find_between(data: str, first: str, last: str) -> str | None:
+    """
+    Searches for the first occurrence of the `first` string in `data`,
+    and returns the text between the two strings.
+
+    Args:
+        data (str): The input string.
+        first (str): The first string to search for.
+        last (str): The last string to search for.
+
+    Returns:
+        str | None: The text between the two strings, or None if the
+            `first` string was not found in `data`.
+    """
+    try:
+        start = data.index(first) + len(first)
+        end = data.index(last, start)
+        return data[start:end]
+    except ValueError:
+        return None
+
+
+def extract_surl_from_url(url: str) -> str | None:
+    """
+    Extracts the surl parameter from a given URL.
+
+    Args:
+        url (str): The URL from which to extract the surl parameter.
+
+    Returns:
+        str: The surl parameter, or False if the parameter could not be found.
+    """
+    parsed_url = urlparse(url)
+    query_params = parse_qs(parsed_url.query)
+    surl = query_params.get("surl", [])
+
+    if surl:
+        return surl[0]
+    else:
+        return False
+
+
+def get_data(url: str):
+    r = requests.Session()
+    headersList = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",
+        "Connection": "keep-alive",
+        "Cookie": COOKIE,
+        "DNT": "1",
+        "Host": "www.terabox.app",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "sec-ch-ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+    }
+
+    payload = ""
+
+    response = r.get(url, data=payload, headers=headersList)
+    response = r.get(response.url, data=payload, headers=headersList)
+    logid = find_between(response.text, "dp-logid=", "&")
+    jsToken = find_between(response.text, "fn%28%22", "%22%29")
+    bdstoken = find_between(response.text, 'bdstoken":"', '"')
+    shorturl = extract_surl_from_url(response.url)
+    if not shorturl:
+        return False
+
+    reqUrl = f"https://www.terabox.app/share/list?app_id=250528&web=1&channel=0&jsToken={jsToken}&dp-logid={logid}&page=1&num=20&by=name&order=asc&site_referer=&shorturl={shorturl}&root=1"
+
+    headersList = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9,hi;q=0.8",
+        "Connection": "keep-alive",
+        "Cookie": COOKIE,
+        "DNT": "1",
+        "Host": "www.terabox.app",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        "sec-ch-ua": '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+    }
+
+    payload = ""
+
+    response = r.get(reqUrl, data=payload, headers=headersList)
+
+    if not response.status_code == 200:
+        return False
+    r_j = response.json()
+    if r_j["errno"]:
+        return False
+    if not "list" in r_j and not r_j["list"]:
+        return False
+
+    response = r.head(r_j["list"][0]["dlink"], headers=headersList)
+    direct_link = response.headers.get("location")
+    data = {
+        "file_name": r_j["list"][0]["server_filename"],
+        "link": r_j["list"][0]["dlink"],
+        "direct_link": direct_link,
+        "thumb": r_j["list"][0]["thumbs"]["url3"],
+        "size": get_formatted_size(int(r_j["list"][0]["size"])),
+        "sizebytes": int(r_j["list"][0]["size"]),
+    }
+    if os.path.exists(data["file_name"]):
+    	start=os.path.getsize(data["file_name"])
+    	file_type="ab"
+    else:
+    	start=0
+    	file_type="wb"
+    headers = {'User-Agent': "dubox;3.31.2;M2102J20SI;android-android;12;JSbridge1.0.10;jointbridge;1.1.39;",
+  'Connection': "Keep-Alive",
+  'Range': f"bytes={start}-"+str(data["sizebytes"])}
+    reaponce=requests.get(re.sub("https://d.terabox.app","https://d.terabox.app",data["link"]),headers=headers, stream=True)
+    print(data["file_name"])
+    	
+    with open(data["file_name"], file_type) as f, tqdm.tqdm(
+      desc="Downloading",
+      total=data["sizebytes"]-start,
+      unit='MB',
+      unit_scale=True,
+      unit_divisor=1024,
+  ) as bar:
+	    for chunk in reaponce.iter_content(chunk_size=1024*1024):
+	       if chunk:
+	          size=f.write(chunk)
+	          bar.update(size)
+    return data
+get_data("https://nephobox.com/s/13VEzhOTi51_TRGMDJMNnJw")
