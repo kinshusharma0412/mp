@@ -44,7 +44,7 @@ async def box(video,message):
 	  'Connection': "Keep-Alive",
 	  'Accept-Encoding': "gzip",
 	  'Referer': "https://terabox.com/",
-	  'Cookie': os.environ["cookies_header"]
+	  'Cookie': os.environ["Cookie"]
 	}
 	
 	response = requests.get(url, params=params, headers=headers)
@@ -93,7 +93,7 @@ async def box(video,message):
 	  'Connection': "Keep-Alive",
 	  'Accept-Encoding': "gzip",
 	  'Referer': "https://terabox.com/",
-	  'Cookie': os.environ["cookies_header"]
+	  'Cookie': os.environ["Cookie"]
 	}
 	
 	response = requests.get(url, params=params, headers=headers)
@@ -144,7 +144,7 @@ async def box(video,message):
 	headers = {
 	  'User-Agent': os.environ["User_Agent"],
 	  'Content-Type': "application/x-www-form-urlencoded",
-	  'Cookie': os.environ["cookies_header"]
+	  'Cookie': os.environ["Cookie"]
 	}
 	dlink=res1["list"][0]["dlink"]
 	parsed_url = urlparse(dlink)
