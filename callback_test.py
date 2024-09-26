@@ -184,11 +184,18 @@ async def gen(y,m):
 		await asyncio.sleep(5)
 
 def all_restart_hibernation(x):
+	r=requests.session()
 	url = "https://share.streamlit.io/api/v1/apps"
 	params = {
 	  'workspace_name': "kinshusharma0412"
 	}
-	response = requests.get(url, params=params, headers=headers)
+	r.headers.update({
+  'User-Agent': "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36",
+  'Content-Type': "application/json",})
+	r.cookies.update({"streamlit_session":os.environ["cookies_header"]})
+	response = r.get(url, params=params)
+	if "x-csrf-token" in response.headers:
+		r.headers.update({"x-csrf-token":response.headers["x-csrf-token"]})
 	app_=response.json()['apps']
 	app_1=[]
 	for x in app_:
@@ -202,7 +209,7 @@ def all_restart_hibernation(x):
 	
 	for app_id in app_1:
 		url = "https://share.streamlit.io/api/v2/apps/"+str(app_id['appId'])+"/restart"
-		response = requests.post(url, headers=headers)
+		response = r.post(url)
 		print(app_1)
 		print(response.text)
 
