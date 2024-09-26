@@ -427,27 +427,34 @@ def get_data(url: str):
         "sizebytes": int(r_j["list"][0]["size"]),
     }
     if os.path.exists(data["file_name"]):
-    	start=os.path.getsize(data["file_name"])
+    	start1=os.path.getsize(data["file_name"])
     	file_type="ab"
     else:
-    	start=0
+    	start1=0
     	file_type="wb"
     headers = {'User-Agent': "dubox;3.31.2;M2102J20SI;android-android;12;JSbridge1.0.10;jointbridge;1.1.39;",
   'Connection': "Keep-Alive",
   'Range': f"bytes={start}-"+str(data["sizebytes"])}
     reaponce=requests.get(re.sub("https://d.terabox.app","https://d.terabox.app",data["link"]),headers=headers, stream=True)
     print(data["file_name"])
-    	
+    now = time.time()
     with open(data["file_name"], file_type) as f, tqdm.tqdm(
       desc="Downloading",
-      total=data["sizebytes"]-start,
+      total=data["sizebytes"]-start1,
       unit='MB',
       unit_scale=True,
       unit_divisor=1024,
   ) as bar:
+	    dl=0
 	    for chunk in reaponce.iter_content(chunk_size=1024*1024):
 	       if chunk:
+	          dl+=len(chunk)
+	          await progress_for_pyrogram(current=dl,
+    total=data["sizebytes"]-start1,
+    ud_type="Downloading :-  "+data["file_name"],
+    message=message,
+    start=now)
 	          size=f.write(chunk)
 	          bar.update(size)
-    return data
+    return data["file_name"],data["thumb"]
 get_data("https://nephobox.com/s/13VEzhOTi51_TRGMDJMNnJw")
