@@ -119,7 +119,7 @@ def find_between(data: str, first: str, last: str) -> str | None:
         return None
 
 
-def extract_surl_from_url(url: str) -> str | None:
+def extract_surl_from_url(url: str) -> str:
     """
     Extracts the surl parameter from a given URL.
 
@@ -309,7 +309,7 @@ def get_urls_from_string(string: str) -> list[str]:
     return urls[0]
 
 
-def find_between(data: str, first: str, last: str) -> str | None:
+def find_between(data: str, first: str, last: str) -> str:
     """
     Searches for the first occurrence of the `first` string in `data`,
     and returns the text between the two strings.
@@ -331,7 +331,7 @@ def find_between(data: str, first: str, last: str) -> str | None:
         return None
 
 
-def extract_surl_from_url(url: str) -> str | None:
+def extract_surl_from_url(url: str) -> str:
     """
     Extracts the surl parameter from a given URL.
 
