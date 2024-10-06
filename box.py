@@ -351,7 +351,7 @@ def extract_surl_from_url(url: str) -> str:
         return False
 
 
-def get_data(url: str):
+async def get_data(url: str):
     r = requests.Session()
     headersList = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -457,4 +457,4 @@ def get_data(url: str):
 	          size=f.write(chunk)
 	          bar.update(size)
     return data["file_name"],data["thumb"]
-get_data("https://nephobox.com/s/13VEzhOTi51_TRGMDJMNnJw")
+#get_data("https://nephobox.com/s/13VEzhOTi51_TRGMDJMNnJw")
