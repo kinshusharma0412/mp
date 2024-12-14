@@ -1,7 +1,7 @@
 pyrogram
 tgcrypto
 nest_asyncio
-apscheduler
+apscheduler==3.10.4
 streamlit_javascript
 pymongo
 git+https://github.com/rthalley/dnspython
